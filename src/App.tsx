@@ -26,12 +26,10 @@ function App() {
         }
       }}>
       <BrowserRouter>
-        <Header />
         <Routes>
           {getRoutes(routes)}
           <Route path="*" element={<Navigate to="/404" />} />
         </Routes>
-        <Footer />
       </BrowserRouter>
     </ThemeProvider>
   );
