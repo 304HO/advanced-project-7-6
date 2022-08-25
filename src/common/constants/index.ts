@@ -17,7 +17,12 @@ export const defaultSurveyData = {
       isRequired: true,
       answer: {
         inputType: "select",
-        inputOptions: []
+        inputOptions: [
+          {
+            label: "",
+            value: ""
+          }
+        ]
       }
     }
   ],
