@@ -49,6 +49,7 @@
     "styled-components": "^5"
   },
   "devDependencies": {
+    "@ant-design/icons": "^4.7.0",
     "@types/styled-components": "^5.1.26",
     "typescript-styled-plugin": "^0.18.2"
   }
