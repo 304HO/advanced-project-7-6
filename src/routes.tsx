@@ -1,4 +1,6 @@
 import Error404 from "./pages/Error404";
+import CreateSurvey from "./pages/CreateSurvey";
+
 export type RouteType = {
   name: string;
   key: string;
@@ -7,6 +9,12 @@ export type RouteType = {
 };
 
 const routes: Array<RouteType> = [
+  {
+    name: "createSurvey",
+    key: "CreateSuerbey",
+    route: "/",
+    component: <CreateSurvey />
+  },
   {
     name: "Error404",
     key: "Error404",

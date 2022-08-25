@@ -28,7 +28,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           {getRoutes(routes)}
-          <Route path="*" element={<Navigate to="/404" />} />
+          {/* <Route path="*" element={<Navigate to="/404" />} /> */}
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
