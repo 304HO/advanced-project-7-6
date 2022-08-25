@@ -1,12 +1,11 @@
-import { Button, Modal, Input } from "antd";
+import { Button, Modal } from "antd";
 import React from "react";
-import ReactDom from "react-dom";
 import styled from "styled-components";
 
 type ModalOptionTypes = {
   title?: string;
   open: boolean;
-  onClose: () => void;
+  onClose: any;
   children?: React.ReactNode;
 };
 
@@ -39,10 +38,10 @@ const ModalOption = ({ open, title, children, onClose }: ModalOptionTypes) => {
       onOk={onClose}
       onCancel={onClose}
       footer={[
-        <StyledButton key="primary" block={true} onClick={onClose}>
+        <StyledButton key="primary" block={true} onClick={() => onClose("fail")}>
           취소
         </StyledButton>,
-        <StyledButton key="back" type="primary" block={true} onClick={onClose}>
+        <StyledButton key="back" type="primary" block={true} onClick={() => onClose("success")}>
           완료
         </StyledButton>
       ]}>

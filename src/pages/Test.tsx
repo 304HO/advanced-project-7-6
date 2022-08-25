@@ -9,7 +9,7 @@ function Test() {
   }, []);
   return (
     <>
-      <button
+      {/* <button
         onClick={() => {
           console.log("????");
           setIsOpen((prev) => !prev);
@@ -18,7 +18,7 @@ function Test() {
       </button>
       <ModalComponent open={isOpen} onClose={() => setIsOpen(false)}>
         {<div>fsdafafsdasdfasfdasfdasfd</div>}
-      </ModalComponent>
+      </ModalComponent> */}
     </>
   );
 }

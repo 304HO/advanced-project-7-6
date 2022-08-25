@@ -6,12 +6,13 @@ import { ThemeProvider } from "styled-components";
 
 import LightTheme from "./assets/theme/light";
 import DarkTheme from "./assets/theme/dark";
-
 import storage from "./common/utils/storage";
 import Header from "./components/Header";
 
 import "antd/dist/antd.css";
 import { defaultSurveyData, defaultSurveyDataTypes } from "./common/constants";
+import CreateSurveyDefault from "./pages/CreateSurveyDefault";
+import Error404 from "./pages/Error404";
 
 function App() {
   const [theme, setTheme] = useState(storage.getTheme());
@@ -20,15 +21,14 @@ function App() {
 
   React.useEffect(() => {
     const newSurveyData = localStorage.getItem("surveyData");
-    if (newSurveyData === null) setSurveyData(defaultSurveyData);
-    else {
-      setSurveyData(JSON.parse(newSurveyData));
-    }
+    if (newSurveyData !== null) setSurveyData(JSON.parse(newSurveyData));
   }, []);
 
   const getRoutes = (allRoutes: Array<RouteType>) =>
     allRoutes.map((route: RouteType) => {
+      console.log(surveyData);
       const CloneElement = React.cloneElement(route.component, { surveyData, setSurveyData });
+
       if (route.useHeader === true) {
         return (
           route.route && (
@@ -61,7 +61,24 @@ function App() {
       <BrowserRouter>
         <Routes>
           {getRoutes(routes)}
+          {/* 
+          <Route
+            path="/"
+            element={
+              <>
+                <Header surveyData={surveyData} />
+                <CreateSurveyDefault surveyData={surveyData} setSurveyData={setSurveyData} />
+              </>
+            }
+          /> */}
+
+          {/* <Route path="*" element={<Navigate to="/404" />} />
           <Route path="*" element={<Navigate to="/404" />} />
+          <Route path="*" element={<Navigate to="/404" />} />
+          <Route path="*" element={<Navigate to="/404" />} />
+          <Route path="*" element={<Navigate to="/404" />} />
+          <Route path="*" element={<Navigate to="/404" />} /> */}
+          <Route path="*" element={<Error404 />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

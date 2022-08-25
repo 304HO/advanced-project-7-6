@@ -9,8 +9,10 @@ import { defaultLabelValueData, LabelValueDataType } from "../common/constants";
 
 type ModalPropsType = {
   open: boolean;
-  children: JSX.Element;
-  onClose: () => void;
+  children?: JSX.Element;
+  onClose: (type?: string) => void;
+  labelValueDatas: Array<LabelValueDataType>;
+  setLabelValueDatas: (prev: any) => void;
 };
 
 const StyledSpan = styled.span`
@@ -47,13 +49,13 @@ const StyledTitle = styled.div`
   line-height: 160%;
 `;
 
-const ModalComponent = ({ open, children, onClose }: ModalPropsType) => {
-  const [labelValueDatas, setLabelValueDatas] = React.useState<Array<LabelValueDataType>>(
-    new Array(3).fill(null).map((_) => ({ ...defaultLabelValueData }))
-  );
+const ModalComponent = ({ labelValueDatas, setLabelValueDatas, open, onClose }: ModalPropsType) => {
+  // const [labelValueDatas, setLabelValueDatas] = React.useState<Array<LabelValueDataType>>(
+  //   new Array(3).fill(null).map((_) => ({ ...defaultLabelValueData }))
+  // );
   if (!open) return null;
   const onClickOptionAddHandler = () => {
-    setLabelValueDatas((prev) => [...prev, { ...defaultLabelValueData }]);
+    setLabelValueDatas((prev: any) => [...prev, { ...defaultLabelValueData }]);
   };
 
   const onChangeInputHandler = (type: string, value: string, index: number) => {

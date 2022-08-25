@@ -68,7 +68,7 @@ function Main() {
           <div>
             <StyledH1>설문조사를 생성 또는 작동할 수 있습니다.</StyledH1>
             <StyledButtons>
-              <Button onClick={() => onClickNavigateHandler("/CreateSurvey")}>생성하기</Button>
+              <Button onClick={() => onClickNavigateHandler("/CreateSurveyDefault")}>생성하기</Button>
               <Button onClick={() => onClickNavigateHandler("/SubmitSurvey")}>작성하기</Button>
             </StyledButtons>
           </div>
