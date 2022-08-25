@@ -6,7 +6,6 @@ import { ThemeProvider } from "styled-components";
 
 import LightTheme from "./assets/theme/light";
 import DarkTheme from "./assets/theme/dark";
-
 import storage from "./common/utils/storage";
 
 function App() {
@@ -28,7 +27,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           {getRoutes(routes)}
-          {/* <Route path="*" element={<Navigate to="/404" />} /> */}
+          <Route path="*" element={<Navigate to="/404" />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
