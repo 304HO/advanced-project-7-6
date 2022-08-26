@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import routes from "./routes";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 
 import LightTheme from "./assets/theme/light";
