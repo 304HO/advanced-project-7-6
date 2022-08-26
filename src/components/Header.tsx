@@ -4,9 +4,52 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { RiArrowGoBackFill } from "react-icons/ri";
 import { Button } from "antd";
-import { defaultSurveyData } from "../common/constants";
+
+type HeaderProps = {
+  visibility?: string;
+  surveyData?: any;
+  setSurveyData?: any;
+};
+
+function Header({ surveyData, setSurveyData }: HeaderProps) {
+  const navigate = useNavigate();
+  const onClickBackButtonHandler = () => {
+    navigate(-1);
+  };
+  const visibility = surveyData !== undefined ? "none" : "hidden";
+  const onClickSubmitHandler = (surveyData: any) => {
+    const surveyListString = localStorage.getItem("surveyList");
+    console.log(surveyListString);
+    if (surveyListString !== null) {
+      const surveyList = JSON.parse(surveyListString);
+      console.log("저장 not null ", surveyList, surveyData);
+      localStorage.setItem("surveyList", JSON.stringify([...surveyList, surveyData]));
+    } else {
+      localStorage.setItem("surveyList", JSON.stringify([surveyData]));
+    }
+    setSurveyData({
+      title: "",
+      description: "",
+      formData: [],
+      completionNotice: "귀한 시간을 내주셔서 감사합니다. 더 좋은 과제를 만들 수 있도록 노력하겠습니다."
+    });
+    navigate("/");
+  };
+  return (
+    <StyledHeader>
+      <StyledBackButton onClick={onClickBackButtonHandler}>
+        <RiArrowGoBackFill size={"1.8em"}></RiArrowGoBackFill>
+      </StyledBackButton>
+      <StyledText>{`설문 조사 제목`}</StyledText>
+      <StyledAntdButton onClick={() => onClickSubmitHandler(surveyData)} visibility={visibility} type="primary" size={"large"}>
+        생성 완료
+      </StyledAntdButton>
+    </StyledHeader>
+  );
+}
 
 const StyledHeader = styled.header`
+  min-width: 1440px;
   position: fixed;
   height: 80px;
   top: 0;
@@ -54,48 +97,5 @@ const StyledBackButton = styled.button`
   margin: 0 1em;
   width: 6em;
 `;
-
-type HeaderProps = {
-  visibility?: string;
-  surveyData?: any;
-  setSurveyData?: any;
-};
-
-function Header({ surveyData, setSurveyData }: HeaderProps) {
-  const navigate = useNavigate();
-  const onClickBackButtonHandler = () => {
-    navigate(-1);
-  };
-  const visibility = surveyData !== undefined ? "none" : "hidden";
-  const onClickSubmitHandler = (surveyData: any) => {
-    const surveyListString = localStorage.getItem("surveyList");
-    console.log(surveyListString);
-    if (surveyListString !== null) {
-      const surveyList = JSON.parse(surveyListString);
-      console.log("저장 not null ", surveyList, surveyData);
-      localStorage.setItem("surveyList", JSON.stringify([...surveyList, surveyData]));
-    } else {
-      localStorage.setItem("surveyList", JSON.stringify([surveyData]));
-    }
-    setSurveyData({
-      title: "",
-      description: "",
-      formData: [],
-      completionNotice: "귀한 시간을 내주셔서 감사합니다. 더 좋은 과제를 만들 수 있도록 노력하겠습니다."
-    });
-    navigate("/");
-  };
-  return (
-    <StyledHeader>
-      <StyledBackButton onClick={onClickBackButtonHandler}>
-        <RiArrowGoBackFill size={"1.8em"}></RiArrowGoBackFill>
-      </StyledBackButton>
-      <StyledText>{`설문 조사 제목`}</StyledText>
-      <StyledAntdButton onClick={() => onClickSubmitHandler(surveyData)} visibility={visibility} type="primary" size={"large"}>
-        생성 완료
-      </StyledAntdButton>
-    </StyledHeader>
-  );
-}
 
 export default Header;

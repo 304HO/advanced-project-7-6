@@ -7,12 +7,15 @@ type BackgroundPropsType = {
 };
 
 const StyledBackground = styled.div`
+  /* border: 3px solid gold; */
   background-color: #f5f5f5;
   height: 100%;
   width: 100%;
   padding: 120px 200px;
 `;
 const StyledContent = styled.div`
+  /* border: 3px solid green; */
+  min-width: 1040px;
   display: flex;
   flex-direction: row;
   width: 100%;
