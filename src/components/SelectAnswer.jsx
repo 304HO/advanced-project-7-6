@@ -1,4 +1,4 @@
-import { Select } from "antd";
+import { Select, Form } from "antd";
 
 const { Option } = Select;
 
@@ -8,6 +8,8 @@ function AntdSelect({ props, setSelectSurveyIdx }) {
     setSelectSurveyIdx(value.value);
   }
   return (
+    <Form>
+<Form.Item rules={[{ required: true }]}>
     <Select labelInValue placeholder="Select" size="large" style={{ width: 500 }} onChange={handleChange}>
       {props.map((item, idx) => {
         return (
@@ -17,6 +19,8 @@ function AntdSelect({ props, setSelectSurveyIdx }) {
         );
       })}
     </Select>
+      </Form.Item>
+      </Form>
   );
 }
 
