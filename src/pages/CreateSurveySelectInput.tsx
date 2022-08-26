@@ -127,10 +127,11 @@ const RightItemContainer = styled.div`
 `;
 
 const AddOptionButton = styled.button`
+  text-align: start;
   outline: none;
   background-color: transparent;
   border: none;
-  width: 92px;
+  width: 150px;
   height: 24px;
   font-size: 14px;
   text-decoration: underline;
