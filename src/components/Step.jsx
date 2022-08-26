@@ -14,11 +14,15 @@ const Container = styled.div`
 const Tab = styled.div``;
 
 function Step({ submitData, page, setPage }) {
+  const onChange = (key) => {
+    console.log(key);
+  };
+
   return (
     <Container>
-      <Tabs defaultActiveKey="1" centered>
+      <Tabs defaultActiveKey="1" onChange={onChange}>
         {submitData.map((item, index) => {
-          return <TabPane key={index}>{index + 1}</TabPane>;
+          return <TabPane tab={`Tab ${index + 1}`} key={index}></TabPane>;
         })}
       </Tabs>
     </Container>
