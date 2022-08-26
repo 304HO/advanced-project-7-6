@@ -45,6 +45,25 @@ function SubmitSurvey({ surveyData, setSurveyData }) {
   const [dateSurveyData, setDateSurveyData] = useState("");
   const [radioSurveyIdx, setRadioSurveyIdx] = useState(-1);
 
+  // React.useEffect(() => {
+  //   const test = JSON.stringify({
+  //     selectSurveyIdx,
+  //     textSurveyData,
+  //     dateSurveyData,
+  //     radioSurveyIdx
+  //   });
+  //   console.log(test);
+  //   // localStorage.setItem(
+  //   //   "test",
+  //   //   JSON.stringify({
+  //   //     selectSurveyIdx,
+  //   //     textSurveyData,
+  //   //     dateSurveyData,
+  //   //     radioSurveyIdx
+  //   //   })
+  //   // );
+  // }, [selectSurveyIdx, textSurveyData, dateSurveyData, radioSurveyIdx]);
+
   const nextPage = (e) => {
     // TODO: 질문 개수에 따라, 마지막 설문 제출시 alert 호출, Button(제출하기) 렌더링
     // const test = e.target.value;

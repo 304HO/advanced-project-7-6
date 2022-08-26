@@ -65,7 +65,7 @@ const routes: Array<RouteType> = [
     key: "SubmitSurvey",
     route: "/SubmitSurvey",
     component: <SubmitSurvey surveyData={undefined} setSurveyData={undefined} />,
-    useHeader: true
+    useHeader: false
   },
   {
     name: "Error404",
