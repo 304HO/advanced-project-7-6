@@ -1,10 +1,11 @@
 import styled from "styled-components";
-import { Menu, Dropdown, Button, message } from "antd";
+import { Menu, Dropdown, Button, message, Form, Switch } from "antd";
 import { DownCircleOutlined, FontSizeOutlined, CalendarOutlined, PlusCircleOutlined, DownOutlined } from "@ant-design/icons";
 import "antd/dist/antd.css";
 import { useNavigate } from "react-router-dom";
 
-function Sidebar() {
+function Sidebar({ checked, requiredCheckHandler }) {
+  console.log(checked, requiredCheckHandler);
   const navigator = useNavigate();
 
   const SelectInput = () => {
@@ -19,6 +20,7 @@ function Sidebar() {
   const SelectInputRadio = () => {
     navigator("/CreateSurveySelectInputRadio");
   };
+
   function handleMenuClick(e) {
     message.info("Click on menu item.");
     console.log("click", e);
@@ -38,7 +40,7 @@ function Sidebar() {
         <CalendarOutlined />
         Date Picker
       </Menu.Item>
-      <Menu.Item key="4" onClick={() => SelectInputRadio()} >
+      <Menu.Item key="4" onClick={() => SelectInputRadio()}>
         <PlusCircleOutlined />
         Radio
       </Menu.Item>
@@ -57,7 +59,9 @@ function Sidebar() {
       </DropDownContainer>
       <ToggleContainer>
         <Text>필수 여부</Text>
-        {/* <Form.Item label="Switch">{getFieldDecorator("switch", { valuePropName: "checked" })(<Switch />)}</Form.Item> */}
+        <Form.Item valuePropName="checked">
+          <Switch checked={checked} onChange={requiredCheckHandler} />
+        </Form.Item>
       </ToggleContainer>
     </SideBarContainer>
   );

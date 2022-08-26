@@ -49,17 +49,17 @@ const StyledTitle = styled.div`
   line-height: 160%;
 `;
 
-const ModalComponent = ({ labelValueDatas, setLabelValueDatas, open, onClose }: ModalPropsType) => {
+const SelectOptionModal = ({ labelValueDatas, setLabelValueDatas, open, onClose }: ModalPropsType) => {
   // const [labelValueDatas, setLabelValueDatas] = React.useState<Array<LabelValueDataType>>(
   //   new Array(3).fill(null).map((_) => ({ ...defaultLabelValueData }))
   // );
   if (!open) return null;
   const onClickOptionAddHandler = () => {
+    if (labelValueDatas.length >= 5) return;
     setLabelValueDatas((prev: any) => [...prev, { ...defaultLabelValueData }]);
   };
 
   const onChangeInputHandler = (type: string, value: string, index: number) => {
-    console.log("asdf", type, value, index);
     const newDatas = [...labelValueDatas];
     if (type === "label") {
       newDatas[index].label = value;
@@ -72,13 +72,13 @@ const ModalComponent = ({ labelValueDatas, setLabelValueDatas, open, onClose }: 
   return ReactDom.createPortal(
     <StyledModalSize>
       <ModalOption title={""} open={open} onClose={onClose}>
-        <StyledTitle>옵션을 선택해주세요.</StyledTitle>
+        <StyledTitle>옵션을 설정해주세요.</StyledTitle>
         <Card style={{ backgroundColor: "#fafafa", border: 0 }}>
           <div>라벨: 실제로 설문조사 답변에 나타나는 label</div>
           <div>값: JSON 데이터에 입력되는 value</div>
         </Card>
         {labelValueDatas.map((value, index: number) => {
-          return <InputLabelValue index={index} data={value} onChangeHandler={onChangeInputHandler}></InputLabelValue>;
+          return <InputLabelValue key={index} index={index} data={value} onChangeHandler={onChangeInputHandler}></InputLabelValue>;
         })}
         <StyledDivCenter>
           <PlusCircleOutlined />
@@ -90,4 +90,4 @@ const ModalComponent = ({ labelValueDatas, setLabelValueDatas, open, onClose }: 
   );
 };
 
-export default ModalComponent;
+export default SelectOptionModal;

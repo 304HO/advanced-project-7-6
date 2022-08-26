@@ -24,6 +24,7 @@ const routes: Array<RouteType> = [
     component: <CreateSurveyDefault surveyData={undefined} setSurveyData={undefined} />,
     useHeader: true
   },
+
   {
     name: "CreateSurveySelectInput",
     key: "CreateSurveySelectInput",
@@ -35,21 +36,21 @@ const routes: Array<RouteType> = [
     name: "CreateSurveySelectInputText",
     key: "CreateSurveySelectInputText",
     route: "/CreateSurveySelectInputText",
-    component: <CreateSurveySelectInputText />,
+    component: <CreateSurveySelectInputText surveyData={undefined} setSurveyData={undefined} />,
     useHeader: true
   },
   {
     name: "CreateSurveySelectInputDatePicker",
     key: "CreateSurveySelectInputDatePicker",
-    route: "CreateSurveySelectInputDatePicker",
-    component: <CreateSurveySelectInputDatePicker />,
+    route: "/CreateSurveySelectInputDatePicker",
+    component: <CreateSurveySelectInputDatePicker surveyData={undefined} setSurveyData={undefined} />,
     useHeader: true
   },
   {
     name: "CreateSurveySelectInputRadio",
     key: "CreateSurveySelectInputRadio",
-    route: "CreateSurveySelectInputRadio",
-    component: <CreateSurveySelectInputRadio />,
+    route: "/CreateSurveySelectInputRadio",
+    component: <CreateSurveySelectInputRadio surveyData={undefined} setSurveyData={undefined} />,
     useHeader: true
   },
   {
@@ -63,8 +64,8 @@ const routes: Array<RouteType> = [
     name: "SubmitSurvey",
     key: "SubmitSurvey",
     route: "/SubmitSurvey",
-    component: <SubmitSurvey />,
-    useHeader: true
+    component: <SubmitSurvey surveyData={undefined} setSurveyData={undefined} />,
+    useHeader: false
   },
   {
     name: "Error404",

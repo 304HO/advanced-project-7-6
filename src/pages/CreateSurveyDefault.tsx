@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { defaultSurveyDataTypes } from "../common/constants";
+import ContentBackground from "../components/ContentBackground";
 
 type CreateSurveyDefaultProps = {
   surveyData: any;
@@ -24,19 +25,21 @@ function CreateSurveyDefault({ surveyData, setSurveyData }: CreateSurveyDefaultP
 
   return (
     <RootContainer>
-      <LeftContainer>
-        <LeftItemContainer>
-          <InputBox onChange={(e) => onChangehandler("title", e.target.value)} value={surveyData.title} type="text" placeholder="  문서 제목" />
-          <InputBox
-            onChange={(e) => onChangehandler("description", e.target.value)}
-            value={surveyData.description}
-            type="text"
-            placeholder="  문서 설명"
-          />
-        </LeftItemContainer>
-        <button onClick={() => createsurvey()}>+ 설문조사 생성하기</button>
-        <div>Enter키를 눌러주세요 </div>
-      </LeftContainer>
+      <ContentBackground>
+        <LeftContainer>
+          <LeftItemContainer>
+            <InputBox onChange={(e) => onChangehandler("title", e.target.value)} value={surveyData.title} type="text" placeholder="  문서 제목" />
+            <InputBox
+              onChange={(e) => onChangehandler("description", e.target.value)}
+              value={surveyData.description}
+              type="text"
+              placeholder="  문서 설명"
+            />
+          </LeftItemContainer>
+          <button onClick={() => createsurvey()}>+ 설문조사 생성하기</button>
+          <div>Enter키를 눌러주세요 </div>
+        </LeftContainer>
+      </ContentBackground>
     </RootContainer>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import routes from "./routes";
+import routes, { RouteType } from "./routes";
 import { ThemeProvider } from "styled-components";
 
 import LightTheme from "./assets/theme/light";
@@ -11,12 +11,11 @@ import Header from "./components/Header";
 
 import "antd/dist/antd.css";
 import { defaultSurveyData, defaultSurveyDataTypes } from "./common/constants";
-import CreateSurveyDefault from "./pages/CreateSurveyDefault";
 import Error404 from "./pages/Error404";
 
 function App() {
   const [theme, setTheme] = useState(storage.getTheme());
-  const [surveyData, setSurveyData] = React.useState < defaultSurveyDataTypes > defaultSurveyData;
+  const [surveyData, setSurveyData] = React.useState<defaultSurveyDataTypes>(defaultSurveyData);
 
   React.useEffect(() => {
     const newSurveyData = localStorage.getItem("surveyData");
@@ -25,9 +24,7 @@ function App() {
 
   const getRoutes = (allRoutes: Array<RouteType>) =>
     allRoutes.map((route: RouteType) => {
-      console.log(surveyData);
       const CloneElement = React.cloneElement(route.component, { surveyData, setSurveyData });
-
       if (route.useHeader === true) {
         return (
           route.route && (

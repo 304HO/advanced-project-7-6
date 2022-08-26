@@ -13,6 +13,8 @@ const StyledBackground = styled.div`
   padding: 120px 200px;
 `;
 const StyledContent = styled.div`
+  display: flex;
+  flex-direction: row;
   width: 100%;
   height: 100%;
   border-radius: 8px;

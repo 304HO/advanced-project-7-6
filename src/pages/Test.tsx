@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../components/Header";
-import ModalComponent from "../components/ModalComponent";
+import ModalComponent from "../components/SelectOptionModal";
 
 function Test() {
   const [isOpen, setIsOpen] = React.useState<boolean>(true);

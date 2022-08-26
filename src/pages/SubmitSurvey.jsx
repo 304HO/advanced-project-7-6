@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate, Navigate } from "react-router-dom";
 import Loading from "../components/Loading";
 import SelectSurvey from "../components/SelectSurvey";
 import SelectAnswer from "../components/SelectAnswer";
 import styled from "styled-components";
 import SurveyTitle from "../components/SurveyTitle";
 import RadioInput from "../components/RadioInput";
-import { Icon, Button, Input, DatePicker } from "antd";
+import { Button, Input, DatePicker, Form, message } from "antd";
+import { CheckOutlined } from "@ant-design/icons";
+import moment from "moment";
+const dateFormat = "YYYY-MM-DD";
 
 const Container = styled.div`
   width: 100vw;
@@ -28,18 +32,46 @@ const SubmitSurveyContainer = styled.div`
   border-radius: 8px;
 `;
 
-function SubmitSurvey() {
-  const [surveyList, setSurveyList] = useState(null);
+function SubmitSurvey({ surveyData, setSurveyData }) {
+  const navigate = useNavigate();
+
+  const [surveyList, setSurveyList] = useState(surveyData);
   const [isLoading, setIsLoading] = useState(true);
 
   const [page, setPage] = useState(0);
   const [surveyIdx, setSurveyIdx] = useState(0);
+  const [selectSurveyIdx, setSelectSurveyIdx] = useState(-1);
+  const [textSurveyData, setTextSurveyData] = useState("");
+  const [dateSurveyData, setDateSurveyData] = useState("");
+  const [radioSurveyIdx, setRadioSurveyIdx] = useState(-1);
 
-  const nextPage = () => {
+  // React.useEffect(() => {
+  //   const test = JSON.stringify({
+  //     selectSurveyIdx,
+  //     textSurveyData,
+  //     dateSurveyData,
+  //     radioSurveyIdx
+  //   });
+  //   console.log(test);
+  //   // localStorage.setItem(
+  //   //   "test",
+  //   //   JSON.stringify({
+  //   //     selectSurveyIdx,
+  //   //     textSurveyData,
+  //   //     dateSurveyData,
+  //   //     radioSurveyIdx
+  //   //   })
+  //   // );
+  // }, [selectSurveyIdx, textSurveyData, dateSurveyData, radioSurveyIdx]);
+
+  const nextPage = (e) => {
     // TODO: 질문 개수에 따라, 마지막 설문 제출시 alert 호출, Button(제출하기) 렌더링
+    // const test = e.target.value;
+    // console.log("prevPage", test);
+    // setInputSubmitData((prev) => [...prev]);
     setPage(page + 1);
   };
-  const prevPage = () => {
+  const prevPage = (e) => {
     setPage(page - 1);
   };
 
@@ -72,10 +104,19 @@ function SubmitSurvey() {
     setIsLoading(false);
   }, []);
 
+  const onChangeDateHandler = (date, dateString) => {
+    setDateSurveyData(dateString);
+  };
+
   if (isLoading) {
     return <Loading />;
   }
-  console.log(surveyList[surveyIdx]);
+
+  if (page > 4) {
+    message.info("설문을 제출했습니다. 감사합니다.");
+    return <Navigate replace to="/" />;
+  }
+
   if (page === 0) {
     return (
       <Container>
@@ -83,7 +124,7 @@ function SubmitSurvey() {
           <SurveyTitle>설문을 선택하세요</SurveyTitle>
           <SelectSurvey props={surveyList} setSurveyIdx={setSurveyIdx} />
           <Button size="large" onClick={() => nextPage()}>
-            <Icon type="check" />
+            <CheckOutlined />
             선택하기
           </Button>
         </SubmitSurveyContainer>
@@ -92,16 +133,35 @@ function SubmitSurvey() {
   } else {
     const inputType = surveyList[surveyIdx].formData[page - 1].answer.inputType;
     const question = surveyList[surveyIdx].formData[page - 1].question;
-
+    const isRequired = surveyList[surveyIdx].formData[page - 1].isRequired;
+    if (isRequired === false) {
+      nextPage();
+    }
+    console.log(inputType);
     switch (inputType) {
       case "text":
         return (
           <Container>
             <SubmitSurveyContainer>
               <SurveyTitle>{question}</SurveyTitle>
-              <Input size="large" style={{ width: 500 }}></Input>
+              <Form>
+                <Form.Item
+                  name={["user", "introduction"]}
+                  rules={[
+                    {
+                      type: "string",
+                      min: 1,
+                      max: 20
+                    },
+                    {
+                      required: true
+                    }
+                  ]}>
+                  <Input size="large" value={textSurveyData} onChange={setTextSurveyData} style={{ width: 500 }}></Input>
+                </Form.Item>
+              </Form>
               <Button size="large" onClick={() => nextPage()}>
-                <Icon type="check" />
+                <CheckOutlined />
                 다음
               </Button>
             </SubmitSurveyContainer>
@@ -114,29 +174,37 @@ function SubmitSurvey() {
           <Container>
             <SubmitSurveyContainer>
               <SurveyTitle>{question}</SurveyTitle>
-              <SelectAnswer props={answerSelect} setSurveyIdx={setSurveyIdx} />
+              <SelectAnswer props={answerSelect} setSelectSurveyIdx={setSelectSurveyIdx} />
               <Button size="large" onClick={() => nextPage()}>
-                <Icon type="check" />
+                <CheckOutlined />
                 다음
               </Button>
             </SubmitSurveyContainer>
           </Container>
         );
       case "date":
+        const selectedDate =
+          surveyList[surveyIdx].formData[page - 1].answer.inputOptions === ""
+            ? new Date()
+            : surveyList[surveyIdx].formData[page - 1].answer.inputOptions;
+
         return (
           <Container>
             <SubmitSurveyContainer>
               <SurveyTitle>{question}</SurveyTitle>
-              <DatePicker size="large" />
+              <DatePicker size="large" defaultValue={moment(selectedDate, dateFormat)} format={dateFormat} onChange={onChangeDateHandler} />
               <Button size="large" onClick={() => nextPage()}>
-                <Icon type="check" />
+                <CheckOutlined />
                 다음
               </Button>
             </SubmitSurveyContainer>
           </Container>
         );
       case "radio":
-        return <RadioInput nextPage={nextPage} />;
+        const radioArrayData = surveyList[surveyIdx].formData[page - 1].answer.inputOptions;
+        return <RadioInput nextPage={nextPage} radioArrayData={radioArrayData} />;
+      default:
+        return <Navigate replace to="/" />;
     }
   }
 }
