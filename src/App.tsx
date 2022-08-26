@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
+import routes from "./routes";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import routes, { RouteType } from "./routes";
 import { ThemeProvider } from "styled-components";
 
 import LightTheme from "./assets/theme/light";
@@ -13,14 +13,26 @@ import "antd/dist/antd.css";
 import { defaultSurveyData, defaultSurveyDataTypes } from "./common/constants";
 import Error404 from "./pages/Error404";
 
+type RouteType = {
+  name: string;
+  key: string;
+  route: string;
+  component: React.ReactElement;
+  useHeader: boolean;
+};
+
 function App() {
   const [theme, setTheme] = useState(storage.getTheme());
   const [surveyData, setSurveyData] = React.useState<defaultSurveyDataTypes>(defaultSurveyData);
 
+  // React.useEffect(() => {
+  //   const newSurveyData = localStorage.getItem("surveyData");
+  //   if (newSurveyData !== null) setSurveyData(JSON.parse(newSurveyData));
+  // }, []);
+
   React.useEffect(() => {
-    const newSurveyData = localStorage.getItem("surveyData");
-    if (newSurveyData !== null) setSurveyData(JSON.parse(newSurveyData));
-  }, []);
+    console.log("surveyData main : ", surveyData);
+  }, [surveyData]);
 
   const getRoutes = (allRoutes: Array<RouteType>) =>
     allRoutes.map((route: RouteType) => {
@@ -32,7 +44,7 @@ function App() {
               path={route.route}
               element={
                 <>
-                  <Header surveyData={surveyData} />
+                  <Header surveyData={surveyData} setSurveyData={setSurveyData} />
                   {CloneElement}
                 </>
               }

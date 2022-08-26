@@ -35,31 +35,41 @@ const SubmitSurveyContainer = styled.div`
   border-radius: 8px;
 `;
 
-function SubmitSurvey({ surveyData, setSurveyData }) {
+function SubmitSurvey({}) {
   const [isLoading, setIsLoading] = useState(true);
-  const [surveyList, setSurveyList] = useState(surveyData);
+  const [surveyList, setSurveyList] = useState([]);
   const [surveyIdx, setSurveyIdx] = useState(0);
-
   const [page, setPage] = useState(0);
 
-  // React.useEffect(() => {
-  //   const test = JSON.stringify({
-  //     selectSurveyIdx,
-  //     textSurveyData,
-  //     dateSurveyData,
-  //     radioSurveyIdx
+  const [inputFormData, setInputFormData] = useState(new Array(100).fill(null));
+
+  React.useEffect(() => {
+    const surveyListString = localStorage.getItem("surveyList");
+    if (surveyListString !== null) {
+      const surveyList = JSON.parse(surveyListString);
+      console.log("surveyListString2", surveyList);
+      // if (surveyList.length !== 0 && surveyList.length < surveyIdx) {
+      // setInputFormData(new Array(surveyList[surveyIdx].formData.length).fill(null));
+      // }
+      setSurveyList(surveyList);
+    }
+    setIsLoading(false);
+  }, []);
+
+  // useEffect(() => {
+  //   // if (surveyList.length !== 0 && surveyList.length < surveyIdx) {
+  //   setInputFormData(new Array(surveyList[surveyIdx].formData.length).fill(null));
+  //   // }
+  //   setIsLoading(false);
+  // }, [surveyIdx]);
+
+  // const updateHandler = (value) => {
+  //   setInputArray((prev) => {
+  //     const newPrev = [...prev];
+  //     newPrev[page] = value;
+  //     return newPrev;
   //   });
-  //   console.log(test);
-  //   // localStorage.setItem(
-  //   //   "test",
-  //   //   JSON.stringify({
-  //   //     selectSurveyIdx,
-  //   //     textSurveyData,
-  //   //     dateSurveyData,
-  //   //     radioSurveyIdx
-  //   //   })
-  //   // );
-  // }, [selectSurveyIdx, textSurveyData, dateSurveyData, radioSurveyIdx]);
+  // };
 
   const nextPage = (e) => {
     // TODO: 질문 개수에 따라, 마지막 설문 제출시 alert 호출, Button(제출하기) 렌더링
@@ -70,43 +80,53 @@ function SubmitSurvey({ surveyData, setSurveyData }) {
     console.log(page);
   }, [page]);
 
-  let list = null;
-  useEffect(() => {
-    setIsLoading(true);
-    const getSurveyList = () => {
-      for (let key in localStorage) {
-        if (!localStorage.hasOwnProperty(key)) {
-          continue;
-        }
-        // TODO: LocalStorage에 저장할 key에 따라서 수정
-        if (key.slice(0, 6) === "survey") {
-          const res = localStorage.getItem(key) || "{}";
-          const json = JSON.parse(res);
-          if (list === null) {
-            list = [json];
-          } else {
-            list = [...list, json];
-          }
-          setSurveyList(list);
-        }
-      }
-    };
-    getSurveyList();
-    setIsLoading(false);
-  }, []);
-
-  // const onChangeDateHandler = (date, dateString) => {
-  //   setDateSurveyData(dateString);
-  // };
-
   if (isLoading) {
     return <Loading />;
   }
+  console.log("message, surveyList", surveyList, surveyIdx);
 
-  if (page > surveyList[surveyIdx].length) {
+  if (surveyList.length === 0) {
+    message.info("설문 리스트가 없습니다.");
+    return <Navigate replace to="/" />;
+  }
+
+  if (page > surveyList[surveyIdx].formData.length) {
     message.info("설문을 제출했습니다. 감사합니다.");
     return <Navigate replace to="/" />;
   }
+
+  const onChangeDateHandler = (date, dateString) => {
+    setInputFormData((prev) => {
+      const newPrev = [...prev];
+      newPrev[page - 1] = dateString;
+      return newPrev;
+    });
+  };
+
+  const onChangeTextHandler = (e) => {
+    const value = e.target.value;
+    setInputFormData((prev) => {
+      const newPrev = [...prev];
+      newPrev[page - 1] = value;
+      return newPrev;
+    });
+  };
+
+  const onChangeSelectHandler = (value) => {
+    setInputFormData((prev) => {
+      const newPrev = [...prev];
+      newPrev[page - 1] = value;
+      return newPrev;
+    });
+  };
+
+  const onChangeRadioHandler = (value) => {
+    setInputFormData((prev) => {
+      const newPrev = [...prev];
+      newPrev[page - 1] = value;
+      return newPrev;
+    });
+  };
 
   if (page === 0) {
     return (
@@ -147,10 +167,10 @@ function SubmitSurvey({ surveyData, setSurveyData }) {
                       required: true
                     }
                   ]}>
-                  <Input size="large" style={{ width: 500 }}></Input>
+                  <Input size="large" onChange={onChangeTextHandler} style={{ width: 500 }}></Input>
                 </Form.Item>
               </Form>
-              <NextButton page={page} nextPage={nextPage} submitData={submitData} setPage={setPage} />
+              <NextButton page={page} nextPage={nextPage} submitData={submitData} setPage={setPage} inputFormData={inputFormData} />
             </SubmitSurveyContainer>
           </Container>
         );
@@ -162,9 +182,13 @@ function SubmitSurvey({ surveyData, setSurveyData }) {
             <SubmitSurveyContainer>
               <Step submitData={submitData} page={page} setPage={setPage} />
               <SurveyTitle>{question}</SurveyTitle>
-
-              <SelectAnswer props={answerSelect} />
-              <NextButton page={page} nextPage={nextPage} submitData={submitData} setPage={setPage} />
+              <SelectAnswer
+                props={answerSelect}
+                // formData={formData}
+                setInputFormData={setInputFormData}
+                onChangeSelectHandler={onChangeSelectHandler}
+              />
+              <NextButton page={page} nextPage={nextPage} submitData={submitData} setPage={setPage} inputFormData={inputFormData} />
             </SubmitSurveyContainer>
           </Container>
         );
@@ -177,14 +201,25 @@ function SubmitSurvey({ surveyData, setSurveyData }) {
               <Step submitData={submitData} page={page} setPage={setPage} />
               <SurveyTitle>{question}</SurveyTitle>
               {/* <DatePicker size="large" defaultValue={moment(selectedDate, dateFormat)} format={dateFormat} onChange={onChangeDateHandler} /> */}
-              <DatePicker size="large" />
-              <NextButton page={page} nextPage={nextPage} submitData={submitData} setPage={setPage} />
+              <DatePicker size="large" onChange={onChangeDateHandler} />
+              <NextButton page={page} nextPage={nextPage} submitData={submitData} setPage={setPage} inputFormData={inputFormData} />
             </SubmitSurveyContainer>
           </Container>
         );
       case "radio":
         const radioArrayData = submitData[page - 1].answer.inputOptions;
-        return <RadioInput nextPage={nextPage} radioArrayData={radioArrayData} />;
+        console.log("radioArrayData", radioArrayData);
+        return (
+          <RadioInput
+            page={page}
+            nextPage={nextPage}
+            submitData={submitData}
+            setPage={setPage}
+            inputFormData={inputFormData}
+            radioArrayData={radioArrayData}
+            onChangeRadioHandler={onChangeRadioHandler}
+          />
+        );
       default:
         return <Navigate replace to="/" />;
     }
