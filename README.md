@@ -36,15 +36,21 @@
 <details>
   <summary>Local Storage 저장된 데이터</summary>
 
-![데이터](https://cdn.discordapp.com/attachments/1011616861223403601/1012719365285752872/unknown.png)
 
+![image](https://user-images.githubusercontent.com/91649767/186931893-395109af-6edc-4e48-9722-9a22845696d5.png)
 </details>
 
 <details>
-  <summary>설문 완료시 안내 메시지</summary>
-
+  <summary>설문지 작성완료 안내 메시지</summary>
+  
+![설문작성완료안내메세지](https://user-images.githubusercontent.com/91649767/186931925-f939b123-68c6-4833-bd73-bb758a88ddf6.gif)
 </details>
 
+<details>
+  <summary>설문작성 완료</summary>
+  
+![설문작성](https://user-images.githubusercontent.com/91649767/186932062-7380d0b5-7833-4e5f-bfa9-588ddebd0ced.gif)
+</details>
 ### 프로젝트 실행 방법
 
 ```
