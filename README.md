@@ -1,6 +1,6 @@
 # codestates-fe-advanced-project-7-6
 
-### 배포링크 
+### 배포링크
 
 ### 7조 팀원구성
 
@@ -36,16 +36,17 @@
 <details>
   <summary>Local Storage 저장된 데이터</summary>
 
-  
-</details> 
+![데이터](https://cdn.discordapp.com/attachments/1011616861223403601/1012719365285752872/unknown.png)
+
+</details>
 
 <details>
   <summary>설문 완료시 안내 메시지</summary>
 
-  
-</details> 
+</details>
 
 ### 프로젝트 실행 방법
+
 ```
 git clone https://github.com/jsc7727/codestates-fe-advanced-project-7-6.git
 cd codestates-fe-advanced-project-7-6
@@ -65,4 +66,5 @@ npm start
 - SubmitSurvey => radio - 채희찬
 
 ### 구현 방법 혹은 구현하면서 어려웠던 점과 이에대한 개선방안
-* 
+
+-

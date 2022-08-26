@@ -136,6 +136,7 @@ function SubmitSurvey({}) {
 
     const inputType = submitData[page - 1].answer.inputType;
     const question = submitData[page - 1].question;
+    const completionNotice = surveyList[surveyIdx].completionNotice;
     const isRequired = submitData[page - 1].isRequired;
     switch (inputType) {
       case "text":
@@ -161,7 +162,14 @@ function SubmitSurvey({}) {
                   <Input size="large" defaultValue={inputFormData[page - 1]} onChange={onChangeTextHandler} style={{ width: 500 }}></Input>
                 </Form.Item>
               </Form>
-              <NextButton page={page} nextPage={nextPage} submitData={submitData} setPage={setPage} inputFormData={inputFormData} />
+              <NextButton
+                page={page}
+                completionNotice={completionNotice}
+                nextPage={nextPage}
+                submitData={submitData}
+                setPage={setPage}
+                inputFormData={inputFormData}
+              />
             </SubmitSurveyContainer>
           </Container>
         );
@@ -179,7 +187,14 @@ function SubmitSurvey({}) {
                 setInputFormData={setInputFormData}
                 onChangeSelectHandler={onChangeSelectHandler}
               />
-              <NextButton page={page} nextPage={nextPage} submitData={submitData} setPage={setPage} inputFormData={inputFormData} />
+              <NextButton
+                page={page}
+                completionNotice={completionNotice}
+                nextPage={nextPage}
+                submitData={submitData}
+                setPage={setPage}
+                inputFormData={inputFormData}
+              />
             </SubmitSurveyContainer>
           </Container>
         );
@@ -191,7 +206,14 @@ function SubmitSurvey({}) {
               <Step submitData={submitData} page={page} setPage={setPage} />
               <SurveyTitle>{question}</SurveyTitle>
               <DatePicker size="large" defaultValue={moment(selectedDate, dateFormat)} format={dateFormat} onChange={onChangeDateHandler} />
-              <NextButton page={page} nextPage={nextPage} submitData={submitData} setPage={setPage} inputFormData={inputFormData} />
+              <NextButton
+                page={page}
+                completionNotice={completionNotice}
+                nextPage={nextPage}
+                submitData={submitData}
+                setPage={setPage}
+                inputFormData={inputFormData}
+              />
             </SubmitSurveyContainer>
           </Container>
         );
@@ -202,6 +224,7 @@ function SubmitSurvey({}) {
         return (
           <RadioInput
             page={page}
+            completionNotice={completionNotice}
             radioInputFormData={radioInputFormData}
             nextPage={nextPage}
             submitData={submitData}

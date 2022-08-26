@@ -8,6 +8,7 @@ import PlusButton from "../components/PlusButton";
 import MinusButton from "../components/MinusButton";
 import { Button } from "antd";
 import { PlusOutlined, MinusOutlined } from "@ant-design/icons";
+import Step from "../components/Step";
 
 function CreateSurveySelectInputRadio({ surveyData, setSurveyData }) {
   const [optionsData, setOptionsData] = React.useState([""]);

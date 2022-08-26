@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { Button, Radio } from "antd";
 import { CheckOutlined } from "@ant-design/icons";
 import NextButton from "./NextButton";
+import Step from "./../components/Step";
+import SurveyTitle from "./../components/SurveyTitle";
 
 const Container = styled.div`
   width: 100vw;
@@ -46,11 +48,17 @@ const IdxContainer = styled.div`
 
 const IconContainer = styled.div``;
 
-const Ttile = styled.div`
-  font-size: 50px;
-`;
-
-function RadioInput({ page, nextPage, radioInputFormData, submitData, setPage, inputFormData, radioArrayData, onChangeRadioHandler }) {
+function RadioInput({
+  page,
+  nextPage,
+  completionNotice,
+  radioInputFormData,
+  submitData,
+  setPage,
+  inputFormData,
+  radioArrayData,
+  onChangeRadioHandler
+}) {
   const buttonRef = useRef(null);
 
   function onChange(e) {
@@ -73,7 +81,8 @@ function RadioInput({ page, nextPage, radioInputFormData, submitData, setPage, i
   return (
     <Container>
       <SubmitSurveyContainer>
-        <Ttile>{submitData[page - 1].question}</Ttile>
+        <Step submitData={submitData} page={page} setPage={setPage} />
+        <SurveyTitle>{submitData[page - 1].question}</SurveyTitle>
         <Radio.Group
           size="large"
           style={{ width: 800 }}
@@ -97,7 +106,14 @@ function RadioInput({ page, nextPage, radioInputFormData, submitData, setPage, i
           })}
         </Radio.Group>
         <div>
-          <NextButton page={page} nextPage={nextPage} submitData={submitData} setPage={setPage} inputFormData={inputFormData} />
+          <NextButton
+            page={page}
+            completionNotice={completionNotice}
+            nextPage={nextPage}
+            submitData={submitData}
+            setPage={setPage}
+            inputFormData={inputFormData}
+          />
 
           <span>Enter키를 눌러주세요.</span>
         </div>

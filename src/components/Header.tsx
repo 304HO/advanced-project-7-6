@@ -22,6 +22,9 @@ function Header({ surveyData, setSurveyData }: HeaderProps) {
       message.info("formData가 없습니다.");
       return;
     }
+
+    surveyData.completionNotice = prompt("설문 제출시 출력할 문장을 입력하세요.");
+
     const surveyListString = localStorage.getItem("surveyList");
     console.log("surveyListString", surveyListString, surveyData);
     if (surveyListString !== null) {
