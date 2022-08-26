@@ -11,11 +11,12 @@ const StyledBackground = styled.div`
   background-color: #f5f5f5;
   height: 100%;
   width: 100%;
-  padding: 120px 200px;
+  padding: 170px 200px;
 `;
 const StyledContent = styled.div`
   /* border: 3px solid green; */
   min-width: 1040px;
+  min-height: 500px;
   display: flex;
   flex-direction: row;
   width: 100%;

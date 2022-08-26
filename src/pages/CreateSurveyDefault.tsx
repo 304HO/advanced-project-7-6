@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { defaultSurveyDataTypes } from "../common/constants";
 import ContentBackground from "../components/ContentBackground";
-import PlusButton from "../components/PlusButton";
+import { Button } from "antd";
+import { DownOutlined } from "@ant-design/icons";
+import "antd/dist/antd.css";
 
 type CreateSurveyDefaultProps = {
   surveyData: any;
@@ -37,8 +38,11 @@ function CreateSurveyDefault({ surveyData, setSurveyData }: CreateSurveyDefaultP
               placeholder="  문서 설명"
             />
           </LeftItemContainer>
-          <ButtonContainer onClick={() => createsurvey()}>
-            설문조사 생성하기
+          <ButtonContainer>
+            <Button onClick={() => createsurvey()}>
+              <DownOutlined />
+              설문조사 생성하기
+            </Button>
             <div>Enter키를 눌러주세요 </div>
           </ButtonContainer>
         </LeftContainer>
