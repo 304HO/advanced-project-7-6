@@ -9,7 +9,7 @@
 - 제경모
 - 채희찬
 
-# 페이지 (gif 파일)
+### 페이지 (gif 파일)
 
 <details>
   <summary>메인 페이지</summary>
@@ -53,7 +53,7 @@ npm install
 npm start
 ```
 
-# 컴포넌트
+### 컴포넌트
 
 - header - 장석찬
 - CreateSurvey => input description - 장석찬
@@ -63,4 +63,6 @@ npm start
 - CreateSurvey => sideBar - 제경모
 - SubmitSurvey => select input(drop box) | text input | data picker - 김민성
 - SubmitSurvey => radio - 채희찬
--
+
+### 구현 방법 혹은 구현하면서 어려웠던 점과 이에대한 개선방안
+* 
