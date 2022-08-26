@@ -38,7 +38,6 @@ function CreateSurveySelectInput({ surveyData, setSurveyData }: CreateSurveySele
   };
   const onChangeInputHandler = (e: any) => {
     const question = e.target.value;
-    console.log(question);
     setSurveyData &&
       setSurveyData((prev) => {
         const newPrev = { ...prev };

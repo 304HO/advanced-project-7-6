@@ -26,7 +26,6 @@ function App() {
 
   const getRoutes = (allRoutes: Array<RouteType>) =>
     allRoutes.map((route: RouteType) => {
-      console.log(surveyData);
       const CloneElement = React.cloneElement(route.component, { surveyData, setSurveyData });
 
       if (route.useHeader === true) {

@@ -53,6 +53,7 @@ const StyledTitle = styled.div`
 const RadioOptionModal = ({ optionsData, setOptionsData, open, onClose }: ModalPropsType) => {
   if (!open) return null;
   const onClickOptionAddHandler = () => {
+    if (optionsData.length >= 5) return;
     setOptionsData((prev: any) => [...prev, ""]);
   };
 
@@ -66,7 +67,15 @@ const RadioOptionModal = ({ optionsData, setOptionsData, open, onClose }: ModalP
       <ModalOption title={""} open={open} onClose={onClose}>
         <StyledTitle>옵션을 설정해주세요.</StyledTitle>
         {optionsData.map((value, index: number) => {
-          return <InputValue title={index.toString()} index={index} value={value} onChangeHandler={onChangeInputHandler} type={""}></InputValue>;
+          return (
+            <InputValue
+              key={index}
+              title={`옵션 ${index + 1}`}
+              index={index}
+              value={value}
+              onChangeHandler={onChangeInputHandler}
+              type={""}></InputValue>
+          );
         })}
         <StyledDivCenter>
           <PlusCircleOutlined />

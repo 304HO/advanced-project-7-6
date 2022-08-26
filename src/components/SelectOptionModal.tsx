@@ -55,11 +55,11 @@ const SelectOptionModal = ({ labelValueDatas, setLabelValueDatas, open, onClose 
   // );
   if (!open) return null;
   const onClickOptionAddHandler = () => {
+    if (labelValueDatas.length >= 5) return;
     setLabelValueDatas((prev: any) => [...prev, { ...defaultLabelValueData }]);
   };
 
   const onChangeInputHandler = (type: string, value: string, index: number) => {
-    console.log("asdf", type, value, index);
     const newDatas = [...labelValueDatas];
     if (type === "label") {
       newDatas[index].label = value;
@@ -78,7 +78,7 @@ const SelectOptionModal = ({ labelValueDatas, setLabelValueDatas, open, onClose 
           <div>값: JSON 데이터에 입력되는 value</div>
         </Card>
         {labelValueDatas.map((value, index: number) => {
-          return <InputLabelValue index={index} data={value} onChangeHandler={onChangeInputHandler}></InputLabelValue>;
+          return <InputLabelValue key={index} index={index} data={value} onChangeHandler={onChangeInputHandler}></InputLabelValue>;
         })}
         <StyledDivCenter>
           <PlusCircleOutlined />

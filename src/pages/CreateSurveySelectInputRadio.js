@@ -24,7 +24,6 @@ function CreateSurveySelectInputRadio({ surveyData, setSurveyData }) {
 
   const onChangeInputHandler = (e) => {
     const question = e.target.value;
-    console.log(question);
     setSurveyData &&
       setSurveyData((prev) => {
         const newPrev = { ...prev };

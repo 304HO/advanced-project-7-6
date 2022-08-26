@@ -61,7 +61,6 @@ type HeaderProps = {
 
 function Header({ surveyData }: HeaderProps) {
   const navigate = useNavigate();
-  console.log("surveyData", surveyData);
   const onClickBackButtonHandler = () => {
     navigate(-1);
   };

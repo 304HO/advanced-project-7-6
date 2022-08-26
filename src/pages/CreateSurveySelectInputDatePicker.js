@@ -11,7 +11,6 @@ function CreateSurveySelectInputDatePicker({ surveyData, setSurveyData }) {
   const selectFormData = surveyData.formData[2];
   const selectedDate = selectFormData.answer.inputOptions === "" ? new Date() : selectFormData.answer.inputOptions;
   function onChange(date, dateString) {
-    console.log(date, dateString);
     setSurveyData &&
       setSurveyData((prev) => {
         const newPrev = { ...prev };
@@ -21,7 +20,6 @@ function CreateSurveySelectInputDatePicker({ surveyData, setSurveyData }) {
   }
   const onChangeInputHandler = (e) => {
     const question = e.target.value;
-    console.log(question);
     setSurveyData &&
       setSurveyData((prev) => {
         const newPrev = { ...prev };
