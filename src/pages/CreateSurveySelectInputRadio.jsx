@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import styled from "styled-components";
 import { Radio } from "antd";
@@ -9,6 +9,7 @@ function CreateSurveySelectInputRadio({ surveyData, setSurveyData }) {
   const selectFormData = surveyData.formData[3];
   const [optionsData, setOptionsData] = React.useState(selectFormData.answer.inputOptions);
   const [open, setOpen] = React.useState(false);
+  const [radioValueDatas, setRadioValueDatas] = React.useState([...surveyData.formData[3].answer.inputOptions]);
 
   const onClose = (type) => {
     if (type === "success") {
@@ -53,7 +54,18 @@ function CreateSurveySelectInputRadio({ surveyData, setSurveyData }) {
                 type="text"
                 placeholder="  2. Radio 설문조사 제목을 입력해주세요."
               />
-              <Radio />
+              <Radio.Group size="large" name="radiogroup" defaultValue={1} buttonStyle="solid">
+                {optionsData.map((item, idx) => {
+                  return (
+                    <Radio.Button style={{ width: "40%", margin: 2 }} key={idx} value={idx}>
+                      <ButtonWrap>
+                        <IdxContainer>{idx + 1}</IdxContainer>
+                        {item}
+                      </ButtonWrap>
+                    </Radio.Button>
+                  );
+                })}
+              </Radio.Group>
             </LeftItemContainer>
             <AddOptionButton onClick={() => setOpen(true)}>옵션 추가하기</AddOptionButton>
             <button>+ 질문 추가하기</button>
@@ -71,6 +83,23 @@ function CreateSurveySelectInputRadio({ surveyData, setSurveyData }) {
 }
 
 export default CreateSurveySelectInputRadio;
+
+const ButtonWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+`;
+
+const IdxContainer = styled.div`
+  display: flex;
+  border: solid 2px;
+  border-radius: 20%;
+  width: 25px;
+  height: 25px;
+  justify-content: center;
+  align-items: center;
+`;
 
 const AddOptionButton = styled.div`
   outline: none;
