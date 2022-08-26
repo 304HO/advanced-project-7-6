@@ -55,6 +55,19 @@ function CreateSurveySelectInput({ surveyData, setSurveyData }: CreateSurveySele
       });
   };
 
+  const onClickMinusForm = () => {
+    console.log(labelValueDatas);
+    setSurveyData &&
+      setSurveyData((prev) => {
+        if (prev.formData.length === 0) return prev;
+        const newPrev = { ...prev };
+        const newPrevformData = [...newPrev.formData];
+        newPrevformData.splice(newPrevformData.length - 1, 1);
+        newPrev.formData = newPrevformData;
+        return newPrev;
+      });
+  };
+
   const menu = (
     <Menu>
       {labelValueDatas.map((v, idx) => {
@@ -81,9 +94,8 @@ function CreateSurveySelectInput({ surveyData, setSurveyData }: CreateSurveySele
               </Dropdown>
               <AddOptionButton onClick={onClickHandler}>옵션 추가하기</AddOptionButton>
             </LeftItemContainer>
-
             <ButtonContainer>
-              <MinusButton />
+              <MinusButton onClickMinusForm={onClickMinusForm} />
               <PlusButton onClickAddForm={onClickAddForm} />
             </ButtonContainer>
           </LeftContainer>

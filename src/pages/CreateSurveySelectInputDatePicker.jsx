@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { DatePicker } from "antd";
 import moment from "moment";
 import ContentBackground from "../components/ContentBackground";
+import PlusButton from "../components/PlusButton";
+import MinusButton from "../components/MinusButton";
 
 const dateFormat = "YYYY-MM-DD";
 
@@ -50,7 +52,10 @@ function CreateSurveySelectInputDatePicker({ surveyData, setSurveyData }) {
             />
             <DatePicker defaultValue={moment(selectedDate, dateFormat)} format={dateFormat} onChange={onChangeDateHandler} />
           </LeftItemContainer>
-          <button onClick={onClickAddForm}>+ 질문 추가하기</button>
+          <ButtonContainer>
+            <MinusButton />
+            <PlusButton onClick={onClickAddForm} />
+          </ButtonContainer>
         </LeftContainer>
         <RightContainer>
           <RightItemContainer>
@@ -63,6 +68,13 @@ function CreateSurveySelectInputDatePicker({ surveyData, setSurveyData }) {
 }
 
 export default CreateSurveySelectInputDatePicker;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 35px;
+`;
 
 const LeftItemContainer = styled.div`
   display: flex;

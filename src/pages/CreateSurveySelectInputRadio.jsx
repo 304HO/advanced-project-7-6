@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { Radio } from "antd";
 import ContentBackground from "../components/ContentBackground";
 import RadioOptionModal from "../components/RadioOptionModal";
+import PlusButton from "../components/PlusButton";
+import MinusButton from "../components/MinusButton";
 
 function CreateSurveySelectInputRadio({ surveyData, setSurveyData }) {
   const [optionsData, setOptionsData] = React.useState([""]);
@@ -61,7 +63,10 @@ function CreateSurveySelectInputRadio({ surveyData, setSurveyData }) {
               </Radio.Group>
             </LeftItemContainer>
             <AddOptionButton onClick={() => setOpen(true)}>옵션 추가하기</AddOptionButton>
-            <button onClick={onClickAddForm}>+ 질문 추가하기</button>
+            <ButtonContainer>
+              <MinusButton />
+              <PlusButton onClick={onClickAddForm} />
+            </ButtonContainer>
           </LeftContainer>
           <RightContainer>
             <RightItemContainer>
@@ -76,6 +81,13 @@ function CreateSurveySelectInputRadio({ surveyData, setSurveyData }) {
 }
 
 export default CreateSurveySelectInputRadio;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 35px;
+`;
 
 const ButtonWrap = styled.div`
   display: flex;

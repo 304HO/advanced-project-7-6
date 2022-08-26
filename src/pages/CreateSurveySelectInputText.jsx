@@ -2,6 +2,8 @@ import React from "react";
 import Sidebar from "../components/Sidebar";
 import styled from "styled-components";
 import ContentBackground from "../components/ContentBackground";
+import PlusButton from "../components/PlusButton";
+import MinusButton from "../components/MinusButton";
 
 function CreateSurveySelectInputText({ surveyData, setSurveyData }) {
   const [isRequired, setIsRequired] = React.useState(false);
@@ -40,7 +42,10 @@ function CreateSurveySelectInputText({ surveyData, setSurveyData }) {
             />
             <InputBox type="text" placeholder="  미리보기 입니다." />
           </LeftItemContainer>
-          <button onClick={onClickAddForm}>+ 질문 추가하기</button>
+          <ButtonContainer>
+            <MinusButton />
+            <PlusButton onClick={onClickAddForm} />
+          </ButtonContainer>
         </LeftContainer>
         <RightContainer>
           <RightItemContainer>
@@ -53,6 +58,13 @@ function CreateSurveySelectInputText({ surveyData, setSurveyData }) {
 }
 
 export default CreateSurveySelectInputText;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 35px;
+`;
 
 const LeftItemContainer = styled.div`
   /* border: 3px solid black; */
