@@ -7,6 +7,7 @@ import CreateSurveyDefault from "./pages/CreateSurveyDefault";
 import CreateSurveySelectInputText from "./pages/CreateSurveySelectInputText";
 import CreateSurveySelectInputDatePicker from "./pages/CreateSurveySelectInputDatePicker";
 import CreateSurveySelectInputRadio from "./pages/CreateSurveySelectInputRadio";
+import CreateSurveySelectInputCheckBox from "./pages/CreateSurveySelectInputCheckBox";
 
 export type RouteType = {
   name: string;
@@ -22,6 +23,13 @@ const routes: Array<RouteType> = [
     key: "CreateSurveyDefault",
     route: "/CreateSurveyDefault",
     component: <CreateSurveyDefault surveyData={undefined} setSurveyData={undefined} />,
+    useHeader: true
+  },
+  {
+    name: "CreateSurveySelectInputCheckBox",
+    key: "CreateSurveySelectInputCheckBox",
+    route: "/CreateSurveySelectInputCheckBox",
+    component: <CreateSurveySelectInputCheckBox />,
     useHeader: true
   },
   {
@@ -63,7 +71,7 @@ const routes: Array<RouteType> = [
     name: "SubmitSurvey",
     key: "SubmitSurvey",
     route: "/SubmitSurvey",
-    component: <SubmitSurvey />,
+    component: <SubmitSurvey surveyData={undefined} setSurveyData={undefined} />,
     useHeader: true
   },
   {

@@ -16,7 +16,6 @@ import Error404 from "./pages/Error404";
 
 function App() {
   const [theme, setTheme] = useState(storage.getTheme());
-
   const [surveyData, setSurveyData] = React.useState<defaultSurveyDataTypes>(defaultSurveyData);
 
   React.useEffect(() => {

@@ -37,7 +37,7 @@ export const defaultSurveyData = {
       question: "",
       isRequired: true,
       answer: {
-        inputType: "dataPicker",
+        inputType: "date",
         inputOptions: ""
       }
     },
