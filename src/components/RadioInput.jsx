@@ -87,7 +87,7 @@ function RadioInput({
           size="large"
           style={{ width: 800 }}
           name="radiogroup"
-          defaultValue={-1}
+          defaultValue={0}
           value={radioInputFormData}
           onChange={onChangeHandler}
           buttonStyle="solid">

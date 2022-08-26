@@ -4,7 +4,6 @@ const { Option } = Select;
 
 function SelectAnswer({ props, selectInputFormData, onChangeSelectHandler }) {
   function handleChange(value) {
-    console.log(value);
     onChangeSelectHandler(value);
   }
   return (

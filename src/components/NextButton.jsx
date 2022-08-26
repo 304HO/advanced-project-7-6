@@ -1,6 +1,7 @@
 import { Button, message } from "antd";
 import { CheckOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import React from "react";
 
 function NextButton({ page, nextPage, completionNotice, submitData, setPage, inputFormData }) {
   const navigate = useNavigate();
@@ -19,23 +20,30 @@ function NextButton({ page, nextPage, completionNotice, submitData, setPage, inp
   };
 
   const valdiation = () => {
-    console.log("valdiation", submitData, inputFormData);
     if (page !== submitData.length) {
       nextPage();
     } else {
       const [resultBoolean, index] = checkFunction();
       if (resultBoolean === true) {
-        console.log(completionNotice);
         message.info("설문을 제출했습니다. 감사합니다.");
         message.info(completionNotice);
         navigate("/");
       } else {
-        console.log(index);
         message.info(`${index + 1}번째 페이지에 값을 입력해주세요.`);
         setPage(index + 1);
       }
     }
   };
+
+  React.useEffect(() => {
+    function timeout() {
+      setTimeout(() => {
+        valdiation();
+      }, 3000);
+    }
+    timeout();
+    return () => clearTimeout(timeout);
+  });
 
   return (
     <Button size="large" onClick={() => valdiation()}>

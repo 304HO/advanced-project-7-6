@@ -26,10 +26,8 @@ function Header({ surveyData, setSurveyData }: HeaderProps) {
     surveyData.completionNotice = prompt("설문 제출시 출력할 문장을 입력하세요.");
 
     const surveyListString = localStorage.getItem("surveyList");
-    console.log("surveyListString", surveyListString, surveyData);
     if (surveyListString !== null) {
       const surveyList = JSON.parse(surveyListString);
-      console.log("저장 not null ", surveyList, surveyData);
       localStorage.setItem("surveyList", JSON.stringify([...surveyList, surveyData]));
     } else {
       localStorage.setItem("surveyList", JSON.stringify([surveyData]));

@@ -39,7 +39,6 @@ function CreateSurveySelectInput({ surveyData, setSurveyData }: CreateSurveySele
   };
 
   const onClickAddForm = () => {
-    console.log("labelValueDatas", labelValueDatas);
     setSurveyData &&
       setSurveyData((prev) => {
         const newPrev = { ...prev };
@@ -56,7 +55,6 @@ function CreateSurveySelectInput({ surveyData, setSurveyData }: CreateSurveySele
   };
 
   const onClickMinusForm = () => {
-    console.log(labelValueDatas);
     setSurveyData &&
       setSurveyData((prev) => {
         if (prev.formData.length === 0) return prev;

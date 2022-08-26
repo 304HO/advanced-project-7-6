@@ -53,23 +53,14 @@ function SubmitSurvey({}) {
 
   useEffect(() => {
     if (surveyList[surveyIdx]?.formData) {
-      console.log("useEffect", surveyList[surveyIdx], surveyList[surveyIdx].formData.length);
       setInputFormData(new Array(surveyList[surveyIdx].formData.length).fill(null));
     }
   }, [surveyIdx, surveyList]);
-
-  React.useEffect(() => {
-    console.log("inputFormData?", inputFormData);
-  }, [inputFormData]);
 
   const nextPage = (e) => {
     // TODO: 질문 개수에 따라, 마지막 설문 제출시 alert 호출, Button(제출하기) 렌더링
     setPage(page + 1);
   };
-
-  useEffect(() => {
-    console.log(page);
-  }, [page]);
 
   if (isLoading) {
     return <Loading />;
@@ -140,7 +131,6 @@ function SubmitSurvey({}) {
     const isRequired = submitData[page - 1].isRequired;
     switch (inputType) {
       case "text":
-        console.log("inputFormData?", inputFormData[page - 1]);
         return (
           <Container>
             <SubmitSurveyContainer>
@@ -219,8 +209,7 @@ function SubmitSurvey({}) {
         );
       case "radio":
         const radioArrayData = submitData[page - 1].answer.inputOptions;
-        const radioInputFormData = inputFormData[page - 1] || -1;
-        console.log("radioInputFormData", radioInputFormData);
+        const radioInputFormData = inputFormData[page - 1] || 0;
         return (
           <RadioInput
             page={page}

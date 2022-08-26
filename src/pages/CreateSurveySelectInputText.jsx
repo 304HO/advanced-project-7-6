@@ -16,7 +16,6 @@ function CreateSurveySelectInputText({ surveyData, setSurveyData }) {
   };
 
   const onClickAddForm = () => {
-    console.log("clickclick", surveyData);
     setSurveyData &&
       setSurveyData((prev) => {
         const newPrev = { ...prev };
