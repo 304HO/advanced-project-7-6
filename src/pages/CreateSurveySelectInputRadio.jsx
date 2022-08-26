@@ -9,7 +9,6 @@ function CreateSurveySelectInputRadio({ surveyData, setSurveyData }) {
   const selectFormData = surveyData.formData[3];
   const [optionsData, setOptionsData] = React.useState(selectFormData.answer.inputOptions);
   const [open, setOpen] = React.useState(false);
-  const [radioValueDatas, setRadioValueDatas] = React.useState([...surveyData.formData[3].answer.inputOptions]);
 
   const onClose = (type) => {
     if (type === "success") {
@@ -126,7 +125,7 @@ const RightItemContainer = styled.div`
 
 const InputBox = styled.input`
   display: block;
-  width: 50vw;
+  width: 720px;
   font-family: inherit;
   padding: 0 0 8px;
   font-size: 30px;
@@ -139,8 +138,7 @@ const InputBox = styled.input`
 
 const RightContainer = styled.div`
   /* border: 3px solid gold; */
-  width: 20vw;
-  /* height: 100vh; */
+  width: 288px;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -148,12 +146,8 @@ const RightContainer = styled.div`
 
 const LeftContainer = styled.div`
   /* border: 3px solid green; */
-  /* width: 80vw; */
-  /* display: flex; */
-  /* justify-content: center; */
   align-items: center;
-  /* flex-direction: column; */
-  gap: 5vw;
+  gap: 72px;
   background: linear-gradient(180deg, #69c0ff 0%, #6993ff 100%);
 
   width: 100%;
