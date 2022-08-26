@@ -50,7 +50,7 @@ const Ttile = styled.div`
   font-size: 50px;
 `;
 
-function RadioInput({ page, nextPage, submitData, setPage, inputFormData, radioArrayData, onChangeRadioHandler }) {
+function RadioInput({ page, nextPage, radioInputFormData, submitData, setPage, inputFormData, radioArrayData, onChangeRadioHandler }) {
   const buttonRef = useRef(null);
 
   function onChange(e) {
@@ -74,7 +74,14 @@ function RadioInput({ page, nextPage, submitData, setPage, inputFormData, radioA
     <Container>
       <SubmitSurveyContainer>
         <Ttile>{submitData[page - 1].question}</Ttile>
-        <Radio.Group size="large" style={{ width: 800 }} name="radiogroup" defaultValue={1} onChange={onChangeHandler} buttonStyle="solid">
+        <Radio.Group
+          size="large"
+          style={{ width: 800 }}
+          name="radiogroup"
+          defaultValue={-1}
+          value={radioInputFormData}
+          onChange={onChangeHandler}
+          buttonStyle="solid">
           {radioArrayData.map((item, idx) => {
             return (
               <Radio.Button style={{ width: "40%", margin: 4 }} key={idx} value={idx}>

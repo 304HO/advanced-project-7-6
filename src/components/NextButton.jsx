@@ -29,6 +29,7 @@ function NextButton({ page, nextPage, submitData, setPage, inputFormData }) {
         navigate("/");
       } else {
         console.log(index);
+        message.info(`${index}번째 페이지에 값을 입력해주세요.`);
         setPage(index + 1);
       }
     }

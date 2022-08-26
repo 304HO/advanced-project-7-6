@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { defaultLabelValueData, defaultSurveyDataTypes, formTypes, LabelValueDataType } from "../common/constants";
 import SelectOptionModal from "../components/SelectOptionModal";
 import { Button, Dropdown, Menu } from "antd";
-import { DownOutlined } from "@ant-design/icons";
+import { DownOutlined, PlusOutlined, MinusOutlined } from "@ant-design/icons";
 import ContentBackground from "../components/ContentBackground";
 import PlusButton from "../components/PlusButton";
 import MinusButton from "../components/MinusButton";
@@ -39,7 +39,7 @@ function CreateSurveySelectInput({ surveyData, setSurveyData }: CreateSurveySele
   };
 
   const onClickAddForm = () => {
-    console.log(labelValueDatas);
+    console.log("labelValueDatas", labelValueDatas);
     setSurveyData &&
       setSurveyData((prev) => {
         const newPrev = { ...prev };
@@ -95,8 +95,14 @@ function CreateSurveySelectInput({ surveyData, setSurveyData }: CreateSurveySele
               <AddOptionButton onClick={onClickHandler}>옵션 추가하기</AddOptionButton>
             </LeftItemContainer>
             <ButtonContainer>
-              <MinusButton onClickMinusForm={onClickMinusForm} />
-              <PlusButton onClickAddForm={onClickAddForm} />
+              <Button onClick={onClickMinusForm}>
+                <MinusOutlined />
+                질문 삭제하기
+              </Button>
+              <Button onClick={onClickAddForm}>
+                <PlusOutlined />
+                질문 추가하기
+              </Button>
             </ButtonContainer>
           </LeftContainer>
           <RightContainer>

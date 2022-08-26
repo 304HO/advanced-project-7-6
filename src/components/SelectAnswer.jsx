@@ -2,7 +2,7 @@ import { Select, Form } from "antd";
 
 const { Option } = Select;
 
-function AntdSelect({ props, onChangeSelectHandler }) {
+function SelectAnswer({ props, selectInputFormData, onChangeSelectHandler }) {
   function handleChange(value) {
     console.log(value);
     onChangeSelectHandler(value);
@@ -10,7 +10,7 @@ function AntdSelect({ props, onChangeSelectHandler }) {
   return (
     <Form>
       <Form.Item rules={[{ required: true }]}>
-        <Select labelInValue placeholder="Select" size="large" style={{ width: 500 }} onChange={handleChange}>
+        <Select defaultValue={selectInputFormData} labelInValue placeholder="Select" size="large" style={{ width: 500 }} onChange={handleChange}>
           {props.map((item, idx) => {
             return (
               <Option key={idx} value={idx}>
@@ -24,4 +24,4 @@ function AntdSelect({ props, onChangeSelectHandler }) {
   );
 }
 
-export default AntdSelect;
+export default SelectAnswer;

@@ -58,6 +58,10 @@ function SubmitSurvey({}) {
     }
   }, [surveyIdx, surveyList]);
 
+  React.useEffect(() => {
+    console.log("inputFormData?", inputFormData);
+  }, [inputFormData]);
+
   const nextPage = (e) => {
     // TODO: 질문 개수에 따라, 마지막 설문 제출시 alert 호출, Button(제출하기) 렌더링
     setPage(page + 1);
@@ -81,11 +85,6 @@ function SubmitSurvey({}) {
     return <Navigate replace to="/" />;
   }
 
-  // if (page > surveyList[surveyIdx].formData.length) {
-  //   message.info("설문을 제출했습니다. 감사합니다.");
-  //   return <Navigate replace to="/" />;
-  // }
-
   const onChangeDateHandler = (date, dateString) => {
     setInputFormData((prev) => {
       const newPrev = [...prev];
@@ -99,7 +98,7 @@ function SubmitSurvey({}) {
     setInputFormData((prev) => {
       const newPrev = [...prev];
       newPrev[page - 1] = value;
-      return newPrev;
+      return [...newPrev];
     });
   };
 
@@ -140,6 +139,7 @@ function SubmitSurvey({}) {
     const isRequired = submitData[page - 1].isRequired;
     switch (inputType) {
       case "text":
+        console.log("inputFormData?", inputFormData[page - 1]);
         return (
           <Container>
             <SubmitSurveyContainer>
@@ -158,7 +158,7 @@ function SubmitSurvey({}) {
                       required: true
                     }
                   ]}>
-                  <Input size="large" onChange={onChangeTextHandler} style={{ width: 500 }}></Input>
+                  <Input size="large" defaultValue={inputFormData[page - 1]} onChange={onChangeTextHandler} style={{ width: 500 }}></Input>
                 </Form.Item>
               </Form>
               <NextButton page={page} nextPage={nextPage} submitData={submitData} setPage={setPage} inputFormData={inputFormData} />
@@ -167,7 +167,7 @@ function SubmitSurvey({}) {
         );
       case "select":
         const answerSelect = submitData[page - 1].answer.inputOptions;
-        console.log(answerSelect);
+        const selectInputFormData = inputFormData[page - 1] || "default";
         return (
           <Container>
             <SubmitSurveyContainer>
@@ -175,7 +175,7 @@ function SubmitSurvey({}) {
               <SurveyTitle>{question}</SurveyTitle>
               <SelectAnswer
                 props={answerSelect}
-                // formData={formData}
+                selectInputFormData={selectInputFormData}
                 setInputFormData={setInputFormData}
                 onChangeSelectHandler={onChangeSelectHandler}
               />
@@ -184,25 +184,25 @@ function SubmitSurvey({}) {
           </Container>
         );
       case "date":
-        const selectedDate = submitData[page - 1].answer.inputOptions === "" ? new Date() : submitData[page - 1].answer.inputOptions;
-
+        const selectedDate = inputFormData[page - 1] === null || inputFormData[page - 1] === "" ? new Date() : inputFormData[page - 1];
         return (
           <Container>
             <SubmitSurveyContainer>
               <Step submitData={submitData} page={page} setPage={setPage} />
               <SurveyTitle>{question}</SurveyTitle>
-              {/* <DatePicker size="large" defaultValue={moment(selectedDate, dateFormat)} format={dateFormat} onChange={onChangeDateHandler} /> */}
-              <DatePicker size="large" onChange={onChangeDateHandler} />
+              <DatePicker size="large" defaultValue={moment(selectedDate, dateFormat)} format={dateFormat} onChange={onChangeDateHandler} />
               <NextButton page={page} nextPage={nextPage} submitData={submitData} setPage={setPage} inputFormData={inputFormData} />
             </SubmitSurveyContainer>
           </Container>
         );
       case "radio":
         const radioArrayData = submitData[page - 1].answer.inputOptions;
-        console.log("radioArrayData", radioArrayData);
+        const radioInputFormData = inputFormData[page - 1] || -1;
+        console.log("radioInputFormData", radioInputFormData);
         return (
           <RadioInput
             page={page}
+            radioInputFormData={radioInputFormData}
             nextPage={nextPage}
             submitData={submitData}
             setPage={setPage}

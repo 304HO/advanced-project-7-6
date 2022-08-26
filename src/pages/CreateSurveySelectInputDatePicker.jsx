@@ -6,6 +6,8 @@ import moment from "moment";
 import ContentBackground from "../components/ContentBackground";
 import PlusButton from "../components/PlusButton";
 import MinusButton from "../components/MinusButton";
+import { Button } from "antd";
+import { PlusOutlined, MinusOutlined } from "@ant-design/icons";
 
 const dateFormat = "YYYY-MM-DD";
 
@@ -39,6 +41,18 @@ function CreateSurveySelectInputDatePicker({ surveyData, setSurveyData }) {
       });
   };
 
+  const onClickMinusForm = () => {
+    setSurveyData &&
+      setSurveyData((prev) => {
+        if (prev.formData.length === 0) return prev;
+        const newPrev = { ...prev };
+        const newPrevformData = [...newPrev.formData];
+        newPrevformData.splice(newPrevformData.length - 1, 1);
+        newPrev.formData = newPrevformData;
+        return newPrev;
+      });
+  };
+
   return (
     <RootContainer>
       <ContentBackground>
@@ -53,8 +67,14 @@ function CreateSurveySelectInputDatePicker({ surveyData, setSurveyData }) {
             <DatePicker defaultValue={moment(selectedDate, dateFormat)} format={dateFormat} onChange={onChangeDateHandler} />
           </LeftItemContainer>
           <ButtonContainer>
-            <MinusButton />
-            <PlusButton onClick={onClickAddForm} />
+            <Button onClick={onClickMinusForm}>
+              <MinusOutlined />
+              질문 삭제하기
+            </Button>
+            <Button onClick={onClickAddForm}>
+              <PlusOutlined />
+              질문 추가하기
+            </Button>
           </ButtonContainer>
         </LeftContainer>
         <RightContainer>
