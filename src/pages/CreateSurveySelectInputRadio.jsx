@@ -6,6 +6,9 @@ import ContentBackground from "../components/ContentBackground";
 import RadioOptionModal from "../components/RadioOptionModal";
 import PlusButton from "../components/PlusButton";
 import MinusButton from "../components/MinusButton";
+import { Button } from "antd";
+import { PlusOutlined, MinusOutlined } from "@ant-design/icons";
+import Step from "../components/Step";
 
 function CreateSurveySelectInputRadio({ surveyData, setSurveyData }) {
   const [optionsData, setOptionsData] = React.useState([""]);
@@ -37,6 +40,18 @@ function CreateSurveySelectInputRadio({ surveyData, setSurveyData }) {
       });
   };
 
+  const onClickMinusForm = () => {
+    setSurveyData &&
+      setSurveyData((prev) => {
+        if (prev.formData.length === 0) return prev;
+        const newPrev = { ...prev };
+        const newPrevformData = [...newPrev.formData];
+        newPrevformData.splice(newPrevformData.length - 1, 1);
+        newPrev.formData = newPrevformData;
+        return newPrev;
+      });
+  };
+
   return (
     <>
       <RootContainer>
@@ -52,7 +67,7 @@ function CreateSurveySelectInputRadio({ surveyData, setSurveyData }) {
               <Radio.Group size="large" name="radiogroup" defaultValue={1} buttonStyle="solid">
                 {optionsData.map((item, idx) => {
                   return (
-                    <Radio.Button style={{ width: "40%", margin: 2 }} key={idx} value={idx}>
+                    <Radio.Button style={{ width: "40%", margin: 2, overflow: "hidden" }} key={idx} value={idx}>
                       <ButtonWrap>
                         <IdxContainer>{idx + 1}</IdxContainer>
                         {item}
@@ -64,8 +79,14 @@ function CreateSurveySelectInputRadio({ surveyData, setSurveyData }) {
               <AddOptionButton onClick={() => setOpen(true)}>옵션 추가하기</AddOptionButton>
             </LeftItemContainer>
             <ButtonContainer>
-              <MinusButton />
-              <PlusButton onClick={onClickAddForm} />
+              <Button onClick={onClickMinusForm}>
+                <MinusOutlined />
+                질문 삭제하기
+              </Button>
+              <Button onClick={onClickAddForm}>
+                <PlusOutlined />
+                질문 추가하기
+              </Button>
             </ButtonContainer>
           </LeftContainer>
           <RightContainer>

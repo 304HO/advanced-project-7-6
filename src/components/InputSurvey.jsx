@@ -25,12 +25,6 @@ const SubmitSurveyContainer = styled.div`
 `;
 
 function InputSurvey({ props, setSurveyIdx, nextPage }) {
-  console.log(props);
-
-  function handleChange(value) {
-    setSurveyIdx(value.key);
-  }
-
   return (
     <Container>
       <SubmitSurveyContainer>

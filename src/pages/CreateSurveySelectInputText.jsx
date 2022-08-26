@@ -3,6 +3,8 @@ import Sidebar from "../components/Sidebar";
 import styled from "styled-components";
 import ContentBackground from "../components/ContentBackground";
 import PlusButton from "../components/PlusButton";
+import { Button } from "antd";
+import { PlusOutlined, MinusOutlined } from "@ant-design/icons";
 import MinusButton from "../components/MinusButton";
 
 function CreateSurveySelectInputText({ surveyData, setSurveyData }) {
@@ -29,6 +31,18 @@ function CreateSurveySelectInputText({ surveyData, setSurveyData }) {
       });
   };
 
+  const onClickMinusForm = () => {
+    setSurveyData &&
+      setSurveyData((prev) => {
+        if (prev.formData.length === 0) return prev;
+        const newPrev = { ...prev };
+        const newPrevformData = [...newPrev.formData];
+        newPrevformData.splice(newPrevformData.length - 1, 1);
+        newPrev.formData = newPrevformData;
+        return newPrev;
+      });
+  };
+
   return (
     <RootContainer>
       <ContentBackground>
@@ -43,8 +57,14 @@ function CreateSurveySelectInputText({ surveyData, setSurveyData }) {
             <InputBox type="text" placeholder="  미리보기 입니다." />
           </LeftItemContainer>
           <ButtonContainer>
-            <MinusButton />
-            <PlusButton />
+            <Button onClick={onClickMinusForm}>
+              <MinusOutlined />
+              질문 삭제하기
+            </Button>
+            <Button onClick={onClickAddForm}>
+              <PlusOutlined />
+              질문 추가하기
+            </Button>
           </ButtonContainer>
         </LeftContainer>
         <RightContainer>

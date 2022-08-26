@@ -25,15 +25,6 @@ function App() {
   const [theme, setTheme] = useState(storage.getTheme());
   const [surveyData, setSurveyData] = React.useState<defaultSurveyDataTypes>(defaultSurveyData);
 
-  // React.useEffect(() => {
-  //   const newSurveyData = localStorage.getItem("surveyData");
-  //   if (newSurveyData !== null) setSurveyData(JSON.parse(newSurveyData));
-  // }, []);
-
-  React.useEffect(() => {
-    console.log("surveyData main : ", surveyData);
-  }, [surveyData]);
-
   const getRoutes = (allRoutes: Array<RouteType>) =>
     allRoutes.map((route: RouteType) => {
       const CloneElement = React.cloneElement(route.component, { surveyData, setSurveyData });

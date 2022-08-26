@@ -1,7 +1,6 @@
 import Error404 from "./pages/Error404";
 import Main from "./pages/Main";
 import SubmitSurvey from "./pages/SubmitSurvey";
-import Test from "./pages/Test";
 import CreateSurveySelectInput from "./pages/CreateSurveySelectInput";
 import CreateSurveyDefault from "./pages/CreateSurveyDefault";
 import CreateSurveySelectInputText from "./pages/CreateSurveySelectInputText";
@@ -72,13 +71,6 @@ const routes = [
     key: "Error404",
     route: "/404",
     component: <Error404 />,
-    useHeader: true
-  },
-  {
-    name: "Test",
-    key: "Test",
-    route: "/Test",
-    component: <Test />,
     useHeader: true
   }
 ];

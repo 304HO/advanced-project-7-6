@@ -50,7 +50,6 @@ function Loading() {
   useEffect(() => {
     const interval = setInterval(() => {
       setLoadingPoint((prev) => {
-        console.log(prev.length);
         return ".".repeat((prev.length + 1) % 4);
       });
     }, 300);

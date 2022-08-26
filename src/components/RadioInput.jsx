@@ -3,6 +3,9 @@ import "antd/dist/antd.css";
 import styled from "styled-components";
 import { Button, Radio } from "antd";
 import { CheckOutlined } from "@ant-design/icons";
+import NextButton from "./NextButton";
+import Step from "./../components/Step";
+import SurveyTitle from "./../components/SurveyTitle";
 
 const Container = styled.div`
   width: 100vw;
@@ -45,11 +48,17 @@ const IdxContainer = styled.div`
 
 const IconContainer = styled.div``;
 
-const Ttile = styled.div`
-  font-size: 50px;
-`;
-
-function RadioInput({ nextPage, radioArrayData }) {
+function RadioInput({
+  page,
+  nextPage,
+  completionNotice,
+  radioInputFormData,
+  submitData,
+  setPage,
+  inputFormData,
+  radioArrayData,
+  onChangeRadioHandler
+}) {
   const buttonRef = useRef(null);
 
   function onChange(e) {
@@ -65,12 +74,23 @@ function RadioInput({ nextPage, radioArrayData }) {
   function onClick() {
     /* localStorage.setItem('json', checked) */
   }
+  const onChangeHandler = (e) => {
+    onChangeRadioHandler(e.target.value);
+  };
 
   return (
     <Container>
       <SubmitSurveyContainer>
-        <Ttile>{123}</Ttile>
-        <Radio.Group size="large" style={{ width: 800 }} name="radiogroup" defaultValue={1} buttonStyle="solid">
+        <Step submitData={submitData} page={page} setPage={setPage} />
+        <SurveyTitle>{submitData[page - 1].question}</SurveyTitle>
+        <Radio.Group
+          size="large"
+          style={{ width: 800 }}
+          name="radiogroup"
+          defaultValue={0}
+          value={radioInputFormData}
+          onChange={onChangeHandler}
+          buttonStyle="solid">
           {radioArrayData.map((item, idx) => {
             return (
               <Radio.Button style={{ width: "40%", margin: 4 }} key={idx} value={idx}>
@@ -86,14 +106,15 @@ function RadioInput({ nextPage, radioArrayData }) {
           })}
         </Radio.Group>
         <div>
-          <Button size="large" onClick={() => nextPage()}>
-            <CheckOutlined />
-            다음
-          </Button>
-          {/* <Button ref={buttonRef} onClick={onClick} onKeyPress={onKeyPress} type="primary">
-            제출하기
-          </Button> */}
-          {/* <button ref={buttonRef} onClick={onClick} onKeyPress={onKeyPress}>제출하기</button> */}
+          <NextButton
+            page={page}
+            completionNotice={completionNotice}
+            nextPage={nextPage}
+            submitData={submitData}
+            setPage={setPage}
+            inputFormData={inputFormData}
+          />
+
           <span>Enter키를 눌러주세요.</span>
         </div>
       </SubmitSurveyContainer>

@@ -3,7 +3,7 @@ import "../App.css";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { RiArrowGoBackFill } from "react-icons/ri";
-import { Button } from "antd";
+import { Button, message } from "antd";
 
 type HeaderProps = {
   visibility?: string;
@@ -18,11 +18,16 @@ function Header({ surveyData, setSurveyData }: HeaderProps) {
   };
   const visibility = surveyData !== undefined ? "none" : "hidden";
   const onClickSubmitHandler = (surveyData: any) => {
+    if (surveyData.formData.length === 0) {
+      message.info("formData가 없습니다.");
+      return;
+    }
+
+    surveyData.completionNotice = prompt("설문 제출시 출력할 문장을 입력하세요.");
+
     const surveyListString = localStorage.getItem("surveyList");
-    console.log(surveyListString);
     if (surveyListString !== null) {
       const surveyList = JSON.parse(surveyListString);
-      console.log("저장 not null ", surveyList, surveyData);
       localStorage.setItem("surveyList", JSON.stringify([...surveyList, surveyData]));
     } else {
       localStorage.setItem("surveyList", JSON.stringify([surveyData]));
