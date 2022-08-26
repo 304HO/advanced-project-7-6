@@ -61,8 +61,8 @@ function CreateSurveySelectInputRadio({ surveyData, setSurveyData }) {
                   );
                 })}
               </Radio.Group>
+              <AddOptionButton onClick={() => setOpen(true)}>옵션 추가하기</AddOptionButton>
             </LeftItemContainer>
-            <AddOptionButton onClick={() => setOpen(true)}>옵션 추가하기</AddOptionButton>
             <ButtonContainer>
               <MinusButton />
               <PlusButton onClick={onClickAddForm} />
@@ -83,6 +83,7 @@ function CreateSurveySelectInputRadio({ surveyData, setSurveyData }) {
 export default CreateSurveySelectInputRadio;
 
 const ButtonContainer = styled.div`
+  /* border: 1px solid red; */
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -90,10 +91,13 @@ const ButtonContainer = styled.div`
 `;
 
 const ButtonWrap = styled.div`
+  /* border: 1px solid red; */
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 10px;
+  margin: auto;
+  height: 40px;
 `;
 
 const IdxContainer = styled.div`
@@ -107,10 +111,11 @@ const IdxContainer = styled.div`
 `;
 
 const AddOptionButton = styled.div`
+  text-align: start;
   outline: none;
   background-color: transparent;
   border: none;
-  width: 92px;
+  width: 150px;
   height: 24px;
   font-size: 14px;
   text-decoration: underline;
