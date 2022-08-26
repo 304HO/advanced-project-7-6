@@ -22,6 +22,15 @@ function CreateSurveySelectInputRadio({ surveyData, setSurveyData }) {
     setOpen(false);
   };
 
+  const requiredCheckHandler = (isRequired) => {
+    setSurveyData &&
+      setSurveyData((prev) => {
+        const newPrev = { ...prev };
+        newPrev.formData[3].isRequired = isRequired;
+        return newPrev;
+      });
+  };
+
   const onChangeInputHandler = (e) => {
     const question = e.target.value;
     setSurveyData &&
@@ -51,7 +60,7 @@ function CreateSurveySelectInputRadio({ surveyData, setSurveyData }) {
           </LeftContainer>
           <RightContainer>
             <RightItemContainer>
-              <Sidebar />
+              <Sidebar checked={selectFormData.isRequired} requiredCheckHandler={requiredCheckHandler} />
             </RightItemContainer>
           </RightContainer>
         </ContentBackground>

@@ -18,6 +18,16 @@ function CreateSurveySelectInputDatePicker({ surveyData, setSurveyData }) {
         return newPrev;
       });
   }
+
+  const requiredCheckHandler = (isRequired) => {
+    setSurveyData &&
+      setSurveyData((prev) => {
+        const newPrev = { ...prev };
+        newPrev.formData[2].isRequired = isRequired;
+        return newPrev;
+      });
+  };
+
   const onChangeInputHandler = (e) => {
     const question = e.target.value;
     setSurveyData &&
@@ -45,7 +55,7 @@ function CreateSurveySelectInputDatePicker({ surveyData, setSurveyData }) {
         </LeftContainer>
         <RightContainer>
           <RightItemContainer>
-            <Sidebar />
+            <Sidebar checked={selectFormData.isRequired} requiredCheckHandler={requiredCheckHandler} />
           </RightItemContainer>
         </RightContainer>
       </ContentBackground>
@@ -56,7 +66,6 @@ function CreateSurveySelectInputDatePicker({ surveyData, setSurveyData }) {
 export default CreateSurveySelectInputDatePicker;
 
 const LeftItemContainer = styled.div`
-  /* border: 3px solid black; */
   display: flex;
   flex-direction: column;
   gap: 60px;
@@ -91,12 +100,7 @@ const RightContainer = styled.div`
 `;
 
 const LeftContainer = styled.div`
-  /* border: 3px solid green; */
-  /* width: 80vw; */
-  /* display: flex; */
-  /* justify-content: center; */
   align-items: center;
-  /* flex-direction: column; */
   gap: 5vw;
   background: linear-gradient(180deg, #69c0ff 0%, #6993ff 100%);
 

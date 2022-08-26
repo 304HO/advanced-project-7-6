@@ -16,6 +16,15 @@ function CreateSurveySelectInputText({ surveyData, setSurveyData }) {
       });
   };
 
+  const requiredCheckHandler = (isRequired) => {
+    setSurveyData &&
+      setSurveyData((prev) => {
+        const newPrev = { ...prev };
+        newPrev.formData[1].isRequired = isRequired;
+        return newPrev;
+      });
+  };
+
   return (
     <RootContainer>
       <ContentBackground>
@@ -33,7 +42,7 @@ function CreateSurveySelectInputText({ surveyData, setSurveyData }) {
         </LeftContainer>
         <RightContainer>
           <RightItemContainer>
-            <Sidebar />
+            <Sidebar checked={selectFormData.isRequired} requiredCheckHandler={requiredCheckHandler} />
           </RightItemContainer>
         </RightContainer>
       </ContentBackground>

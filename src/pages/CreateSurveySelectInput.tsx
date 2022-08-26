@@ -22,6 +22,16 @@ function CreateSurveySelectInput({ surveyData, setSurveyData }: CreateSurveySele
 
   const selectFormData = surveyData.formData[0];
   const [open, setOpen] = useState<boolean>(false);
+
+  const requiredCheckHandler = (isRequired: boolean) => {
+    setSurveyData &&
+      setSurveyData((prev) => {
+        const newPrev = { ...prev };
+        newPrev.formData[0].isRequired = isRequired;
+        return newPrev;
+      });
+  };
+
   const onClose = (type?: string) => {
     if (type === "success") {
       setSurveyData &&
@@ -80,7 +90,7 @@ function CreateSurveySelectInput({ surveyData, setSurveyData }: CreateSurveySele
           </LeftContainer>
           <RightContainer>
             <RightItemContainer>
-              <Sidebar />
+              <Sidebar checked={selectFormData.isRequired} requiredCheckHandler={requiredCheckHandler} />
             </RightItemContainer>
           </RightContainer>
         </ContentBackground>
