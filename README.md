@@ -12,29 +12,46 @@
 # 페이지 (gif 파일)
 
 <details>
-  <summary>메인페이지</summary>
-  <details>아래 두 버튼을 포함한 간단한 메인 페이지입니다.</3details>
+  <summary>메인 페이지</summary>
+  - 설문 생성 페이지 이동 버튼 </br>
+  - 설문 참여 페이지 이동 버튼
   
+  ![메인페이지](https://user-images.githubusercontent.com/91649767/186906209-6ef0b967-56c2-4f6d-9c66-219115672f42.gif)
 </details>
-<details>
-  <summary>메인페이지</summary>
 
-</details>
 <details>
-  <summary>메인페이지</summary>
-
+  <summary>설문 생성 페이지</summary>
+  - 설문의 제목과 설명을 입력합니다.
+  
+![설문생성페이지](https://user-images.githubusercontent.com/91649767/186907071-bfdfc512-b8ee-4fbe-9776-49c8af4e5fd5.gif)
 </details>
+
 <details>
-  <summary>메인페이지</summary>
-
+  <summary>질문 생성</summary>
+  - 답변 필수 여부와 질문 생성(타입별)
+  
+  ![질문 생성](https://user-images.githubusercontent.com/91649767/186907949-9d73b9f8-82f5-410d-814c-202e96822a80.gif)
 </details>
+
 <details>
-  <summary>메인페이지</summary>
+  <summary>Local Storage 저장된 데이터</summary>
 
-</details>
-- Main
-- CreateSurvey
-- SubmitSurvey
+  
+</details> 
+
+<details>
+  <summary>설문 완료시 안내 메시지</summary>
+
+  
+</details> 
+
+### 프로젝트 실행 방법
+```
+git clone https://github.com/jsc7727/codestates-fe-advanced-project-7-6.git
+cd codestates-fe-advanced-project-7-6
+npm install
+npm start
+```
 
 # 컴포넌트
 
