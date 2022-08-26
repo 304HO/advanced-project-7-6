@@ -11,7 +11,6 @@ import Header from "./components/Header";
 
 import "antd/dist/antd.css";
 import { defaultSurveyData, defaultSurveyDataTypes } from "./common/constants";
-import CreateSurveyDefault from "./pages/CreateSurveyDefault";
 import Error404 from "./pages/Error404";
 
 function App() {
@@ -26,7 +25,6 @@ function App() {
   const getRoutes = (allRoutes: Array<RouteType>) =>
     allRoutes.map((route: RouteType) => {
       const CloneElement = React.cloneElement(route.component, { surveyData, setSurveyData });
-
       if (route.useHeader === true) {
         return (
           route.route && (

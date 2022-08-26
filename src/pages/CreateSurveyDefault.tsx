@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { defaultSurveyDataTypes } from "../common/constants";
 import ContentBackground from "../components/ContentBackground";
+import PlusButton from "../components/PlusButton";
 
 type CreateSurveyDefaultProps = {
   surveyData: any;
@@ -36,8 +37,10 @@ function CreateSurveyDefault({ surveyData, setSurveyData }: CreateSurveyDefaultP
               placeholder="  문서 설명"
             />
           </LeftItemContainer>
-          <button onClick={() => createsurvey()}>+ 설문조사 생성하기</button>
-          <div>Enter키를 눌러주세요 </div>
+          <ButtonContainer onClick={() => createsurvey()}>
+            <PlusButton />
+            <div>Enter키를 눌러주세요 </div>
+          </ButtonContainer>
         </LeftContainer>
       </ContentBackground>
     </RootContainer>
@@ -46,16 +49,25 @@ function CreateSurveyDefault({ surveyData, setSurveyData }: CreateSurveyDefaultP
 
 export default CreateSurveyDefault;
 
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 35px;
+`;
+
 const LeftItemContainer = styled.div`
   /* border: 3px solid black; */
+  min-width: 1040px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 60px;
 `;
 
 const InputBox = styled.input`
   display: block;
-  width: 50vw;
+  width: 720px;
   font-family: inherit;
   padding: 0 0 8px;
   font-size: 30px;
@@ -73,9 +85,8 @@ const LeftContainer = styled.div`
   /* justify-content: center; */
   align-items: center;
   /* flex-direction: column; */
-  gap: 5vw;
+  gap: 72px;
   background: linear-gradient(180deg, #69c0ff 0%, #6993ff 100%);
-
   width: 100%;
   min-height: 100%;
   display: flex;

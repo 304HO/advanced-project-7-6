@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import styled from "styled-components";
 import { Radio } from "antd";
@@ -20,6 +20,15 @@ function CreateSurveySelectInputRadio({ surveyData, setSurveyData }) {
         });
     }
     setOpen(false);
+  };
+
+  const requiredCheckHandler = (isRequired) => {
+    setSurveyData &&
+      setSurveyData((prev) => {
+        const newPrev = { ...prev };
+        newPrev.formData[3].isRequired = isRequired;
+        return newPrev;
+      });
   };
 
   const onChangeInputHandler = (e) => {
@@ -44,14 +53,25 @@ function CreateSurveySelectInputRadio({ surveyData, setSurveyData }) {
                 type="text"
                 placeholder="  2. Radio 설문조사 제목을 입력해주세요."
               />
-              <Radio />
+              <Radio.Group size="large" name="radiogroup" defaultValue={1} buttonStyle="solid">
+                {optionsData.map((item, idx) => {
+                  return (
+                    <Radio.Button style={{ width: "40%", margin: 2 }} key={idx} value={idx}>
+                      <ButtonWrap>
+                        <IdxContainer>{idx + 1}</IdxContainer>
+                        {item}
+                      </ButtonWrap>
+                    </Radio.Button>
+                  );
+                })}
+              </Radio.Group>
             </LeftItemContainer>
             <AddOptionButton onClick={() => setOpen(true)}>옵션 추가하기</AddOptionButton>
             <button>+ 질문 추가하기</button>
           </LeftContainer>
           <RightContainer>
             <RightItemContainer>
-              <Sidebar />
+              <Sidebar checked={selectFormData.isRequired} requiredCheckHandler={requiredCheckHandler} />
             </RightItemContainer>
           </RightContainer>
         </ContentBackground>
@@ -62,6 +82,23 @@ function CreateSurveySelectInputRadio({ surveyData, setSurveyData }) {
 }
 
 export default CreateSurveySelectInputRadio;
+
+const ButtonWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+`;
+
+const IdxContainer = styled.div`
+  display: flex;
+  border: solid 2px;
+  border-radius: 20%;
+  width: 25px;
+  height: 25px;
+  justify-content: center;
+  align-items: center;
+`;
 
 const AddOptionButton = styled.div`
   outline: none;
@@ -88,7 +125,7 @@ const RightItemContainer = styled.div`
 
 const InputBox = styled.input`
   display: block;
-  width: 50vw;
+  width: 720px;
   font-family: inherit;
   padding: 0 0 8px;
   font-size: 30px;
@@ -101,8 +138,7 @@ const InputBox = styled.input`
 
 const RightContainer = styled.div`
   /* border: 3px solid gold; */
-  width: 20vw;
-  /* height: 100vh; */
+  width: 288px;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -110,12 +146,8 @@ const RightContainer = styled.div`
 
 const LeftContainer = styled.div`
   /* border: 3px solid green; */
-  /* width: 80vw; */
-  /* display: flex; */
-  /* justify-content: center; */
   align-items: center;
-  /* flex-direction: column; */
-  gap: 5vw;
+  gap: 72px;
   background: linear-gradient(180deg, #69c0ff 0%, #6993ff 100%);
 
   width: 100%;
