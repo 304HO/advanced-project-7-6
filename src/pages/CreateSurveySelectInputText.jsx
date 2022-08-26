@@ -53,7 +53,7 @@ function CreateSurveySelectInputText({ surveyData, setSurveyData }) {
               onChange={(e) => setQuestion(e.target.value)}
               value={question}
               type="text"
-              placeholder="  2. Text input 설무조사 제목을 입력해주세요."
+              placeholder="  2. Text input 설문조사 제목을 입력해주세요."
             />
             <InputBox type="text" placeholder="  미리보기 입니다." />
           </LeftItemContainer>

@@ -67,7 +67,7 @@ function CreateSurveySelectInputRadio({ surveyData, setSurveyData }) {
               <Radio.Group size="large" name="radiogroup" defaultValue={1} buttonStyle="solid">
                 {optionsData.map((item, idx) => {
                   return (
-                    <Radio.Button style={{ width: "40%", margin: 2 }} key={idx} value={idx}>
+                    <Radio.Button style={{ width: "40%", margin: 2, overflow: "hidden" }} key={idx} value={idx}>
                       <ButtonWrap>
                         <IdxContainer>{idx + 1}</IdxContainer>
                         {item}
@@ -76,8 +76,8 @@ function CreateSurveySelectInputRadio({ surveyData, setSurveyData }) {
                   );
                 })}
               </Radio.Group>
+              <AddOptionButton onClick={() => setOpen(true)}>옵션 추가하기</AddOptionButton>
             </LeftItemContainer>
-            <AddOptionButton onClick={() => setOpen(true)}>옵션 추가하기</AddOptionButton>
             <ButtonContainer>
               <Button onClick={onClickMinusForm}>
                 <MinusOutlined />
@@ -104,6 +104,7 @@ function CreateSurveySelectInputRadio({ surveyData, setSurveyData }) {
 export default CreateSurveySelectInputRadio;
 
 const ButtonContainer = styled.div`
+  /* border: 1px solid red; */
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -111,10 +112,13 @@ const ButtonContainer = styled.div`
 `;
 
 const ButtonWrap = styled.div`
+  /* border: 1px solid red; */
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 10px;
+  margin: auto;
+  height: 40px;
 `;
 
 const IdxContainer = styled.div`
@@ -128,10 +132,11 @@ const IdxContainer = styled.div`
 `;
 
 const AddOptionButton = styled.div`
+  text-align: start;
   outline: none;
   background-color: transparent;
   border: none;
-  width: 92px;
+  width: 150px;
   height: 24px;
   font-size: 14px;
   text-decoration: underline;
