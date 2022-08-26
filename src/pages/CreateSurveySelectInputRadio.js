@@ -1,25 +1,64 @@
 import React from "react";
 import Sidebar from "../components/Sidebar";
 import styled from "styled-components";
-import {Radio} from 'antd'
+import { Radio } from "antd";
+import ContentBackground from "../components/ContentBackground";
+import RadioOptionModal from "../components/RadioOptionModal";
 
-function CreateSurveySelectInputRadio() {
+function CreateSurveySelectInputRadio({ surveyData, setSurveyData }) {
+  const selectFormData = surveyData.formData[3];
+  const [optionsData, setOptionsData] = React.useState(selectFormData.answer.inputOptions);
+  const [open, setOpen] = React.useState(false);
+
+  const onClose = (type) => {
+    if (type === "success") {
+      setSurveyData &&
+        setSurveyData((prev) => {
+          const newPrev = { ...prev };
+          newPrev.formData[3].answer.inputOptions = optionsData;
+          return newPrev;
+        });
+    }
+    setOpen(false);
+  };
+
+  const onChangeInputHandler = (e) => {
+    const question = e.target.value;
+    console.log(question);
+    setSurveyData &&
+      setSurveyData((prev) => {
+        const newPrev = { ...prev };
+        newPrev.formData[3].question = question;
+        return newPrev;
+      });
+  };
+
   return (
-    <RootContainer>
-      <LeftContainer>
-        <LeftItemContainer>
-          <InputBox type="text" placeholder="  2. Radio 설문조사 제목을 입력해주세요." />
-          <Radio/>
-        </LeftItemContainer>
-        <AddOptionButton onClick={() => console.log("aaa")}>옵션 추가하기</AddOptionButton>
-        <button>+ 질문 추가하기</button>
-      </LeftContainer>
-      <RightContainer>
-        <RightItemContainer>
-          <Sidebar />
-        </RightItemContainer>
-      </RightContainer>
-    </RootContainer>
+    <>
+      <RootContainer>
+        <ContentBackground>
+          <LeftContainer>
+            <LeftItemContainer>
+              <InputBox
+                onChange={onChangeInputHandler}
+                value={selectFormData.question}
+                type="text"
+                placeholder="  2. Radio 설문조사 제목을 입력해주세요."
+              />
+              <Radio />
+            </LeftItemContainer>
+            <AddOptionButton onClick={() => setOpen(true)}>옵션 추가하기</AddOptionButton>
+            <button>+ 질문 추가하기</button>
+          </LeftContainer>
+          <RightContainer>
+            <RightItemContainer>
+              <Sidebar />
+            </RightItemContainer>
+          </RightContainer>
+        </ContentBackground>
+      </RootContainer>
+      <RadioOptionModal open={open} onClose={onClose} optionsData={optionsData} setOptionsData={setOptionsData}></RadioOptionModal>
+    </>
   );
 }
 
@@ -44,6 +83,8 @@ const LeftItemContainer = styled.div`
 
 const RightItemContainer = styled.div`
   padding: 119px 24px;
+  background-color: white;
+  height: 100%;
 `;
 
 const InputBox = styled.input`
@@ -62,7 +103,7 @@ const InputBox = styled.input`
 const RightContainer = styled.div`
   /* border: 3px solid gold; */
   width: 20vw;
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   flex-direction: column;
   gap: 15px;

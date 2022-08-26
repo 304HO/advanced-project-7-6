@@ -2,26 +2,55 @@ import React from "react";
 import Sidebar from "../components/Sidebar";
 import styled from "styled-components";
 import { DatePicker } from "antd";
+import moment from "moment";
+import ContentBackground from "../components/ContentBackground";
 
-function CreateSurveySelectInputDatePicker() {
+const dateFormat = "YYYY-MM-DD";
+
+function CreateSurveySelectInputDatePicker({ surveyData, setSurveyData }) {
+  const selectFormData = surveyData.formData[2];
+  const selectedDate = selectFormData.answer.inputOptions === "" ? new Date() : selectFormData.answer.inputOptions;
   function onChange(date, dateString) {
     console.log(date, dateString);
+    setSurveyData &&
+      setSurveyData((prev) => {
+        const newPrev = { ...prev };
+        newPrev.formData[2].answer.inputOptions = dateString;
+        return newPrev;
+      });
   }
+  const onChangeInputHandler = (e) => {
+    const question = e.target.value;
+    console.log(question);
+    setSurveyData &&
+      setSurveyData((prev) => {
+        const newPrev = { ...prev };
+        newPrev.formData[2].question = question;
+        return newPrev;
+      });
+  };
 
   return (
     <RootContainer>
-      <LeftContainer>
-        <LeftItemContainer>
-          <InputBox type="text" placeholder="  3. Datepicker 설문조사 제목을 입력해주세요." />
-          <DatePicker onChange={onChange} />
-        </LeftItemContainer>
-        <button>+ 질문 추가하기</button>
-      </LeftContainer>
-      <RightContainer>
-        <RightItemContainer>
-          <Sidebar />
-        </RightItemContainer>
-      </RightContainer>
+      <ContentBackground>
+        <LeftContainer>
+          <LeftItemContainer>
+            <InputBox
+              onChange={onChangeInputHandler}
+              value={selectFormData.question}
+              type="text"
+              placeholder="3. Datepicker 설문조사 제목을 입력해주세요."
+            />
+            <DatePicker defaultValue={moment(selectedDate, dateFormat)} format={dateFormat} onChange={onChange} />
+          </LeftItemContainer>
+          <button>+ 질문 추가하기</button>
+        </LeftContainer>
+        <RightContainer>
+          <RightItemContainer>
+            <Sidebar />
+          </RightItemContainer>
+        </RightContainer>
+      </ContentBackground>
     </RootContainer>
   );
 }
@@ -37,6 +66,8 @@ const LeftItemContainer = styled.div`
 
 const RightItemContainer = styled.div`
   padding: 119px 24px;
+  height: 100%;
+  background-color: white;
 `;
 
 const InputBox = styled.input`
@@ -55,7 +86,7 @@ const InputBox = styled.input`
 const RightContainer = styled.div`
   /* border: 3px solid gold; */
   width: 20vw;
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   flex-direction: column;
   gap: 15px;

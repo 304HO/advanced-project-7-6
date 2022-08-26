@@ -24,6 +24,30 @@ export const defaultSurveyData = {
           }
         ]
       }
+    },
+    {
+      question: "",
+      isRequired: true,
+      answer: {
+        inputType: "text",
+        inputOptions: ""
+      }
+    },
+    {
+      question: "",
+      isRequired: true,
+      answer: {
+        inputType: "dataPicker",
+        inputOptions: ""
+      }
+    },
+    {
+      question: "",
+      isRequired: true,
+      answer: {
+        inputType: "radio",
+        inputOptions: [""]
+      }
     }
   ],
   completionNotice: "귀한 시간을 내주셔서 감사합니다. 더 좋은 과제를 만들 수 있도록 노력하겠습니다."
@@ -63,7 +87,7 @@ export const defaultSurveyData = {
 
 export type answerTypes = {
   inputType: string;
-  inputOptions?: Array<LabelValueDataType>;
+  inputOptions?: Array<LabelValueDataType> | string | Array<string>;
 };
 
 export type formTypes = {

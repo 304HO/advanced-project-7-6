@@ -1,22 +1,43 @@
 import React from "react";
 import Sidebar from "../components/Sidebar";
 import styled from "styled-components";
+import ContentBackground from "../components/ContentBackground";
 
-function CreateSurveySelectInputText() {
+function CreateSurveySelectInputText({ surveyData, setSurveyData }) {
+  const selectFormData = surveyData.formData[1];
+
+  const onChangeInputHandler = (e) => {
+    const question = e.target.value;
+    console.log(question);
+    setSurveyData &&
+      setSurveyData((prev) => {
+        const newPrev = { ...prev };
+        newPrev.formData[1].question = question;
+        return newPrev;
+      });
+  };
+
   return (
     <RootContainer>
-      <LeftContainer>
-        <LeftItemContainer>
-          <InputBox type="text" placeholder="  2. Text input 설무조사 제목을 입력해주세요." />
-          <InputBox type="text" placeholder="  미리보기 입니다." />
-        </LeftItemContainer>
-        <button>+ 질문 추가하기</button>
-      </LeftContainer>
-      <RightContainer>
-        <RightItemContainer>
-          <Sidebar />
-        </RightItemContainer>
-      </RightContainer>
+      <ContentBackground>
+        <LeftContainer>
+          <LeftItemContainer>
+            <InputBox
+              onChange={onChangeInputHandler}
+              value={selectFormData.question}
+              type="text"
+              placeholder="  2. Text input 설무조사 제목을 입력해주세요."
+            />
+            <InputBox type="text" placeholder="  미리보기 입니다." />
+          </LeftItemContainer>
+          <button>+ 질문 추가하기</button>
+        </LeftContainer>
+        <RightContainer>
+          <RightItemContainer>
+            <Sidebar />
+          </RightItemContainer>
+        </RightContainer>
+      </ContentBackground>
     </RootContainer>
   );
 }
@@ -32,6 +53,8 @@ const LeftItemContainer = styled.div`
 
 const RightItemContainer = styled.div`
   padding: 119px 24px;
+  background-color: white;
+  height: 100%;
 `;
 
 const InputBox = styled.input`
@@ -50,7 +73,7 @@ const InputBox = styled.input`
 const RightContainer = styled.div`
   /* border: 3px solid gold; */
   width: 20vw;
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   flex-direction: column;
   gap: 15px;

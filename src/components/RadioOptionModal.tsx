@@ -6,13 +6,14 @@ import styled from "styled-components";
 import ModalOption from "./Modal/ModalOption";
 import InputLabelValue from "./InputLabelValue";
 import { defaultLabelValueData, LabelValueDataType } from "../common/constants";
+import InputValue from "./InputValue";
 
 type ModalPropsType = {
   open: boolean;
   children?: JSX.Element;
   onClose: (type?: string) => void;
-  labelValueDatas: Array<LabelValueDataType>;
-  setLabelValueDatas: (prev: any) => void;
+  optionsData: Array<string>;
+  setOptionsData: (prev: any) => void;
 };
 
 const StyledSpan = styled.span`
@@ -49,36 +50,23 @@ const StyledTitle = styled.div`
   line-height: 160%;
 `;
 
-const ModalComponent = ({ labelValueDatas, setLabelValueDatas, open, onClose }: ModalPropsType) => {
-  // const [labelValueDatas, setLabelValueDatas] = React.useState<Array<LabelValueDataType>>(
-  //   new Array(3).fill(null).map((_) => ({ ...defaultLabelValueData }))
-  // );
+const RadioOptionModal = ({ optionsData, setOptionsData, open, onClose }: ModalPropsType) => {
   if (!open) return null;
   const onClickOptionAddHandler = () => {
-    setLabelValueDatas((prev: any) => [...prev, { ...defaultLabelValueData }]);
+    setOptionsData((prev: any) => [...prev, ""]);
   };
 
   const onChangeInputHandler = (type: string, value: string, index: number) => {
-    console.log("asdf", type, value, index);
-    const newDatas = [...labelValueDatas];
-    if (type === "label") {
-      newDatas[index].label = value;
-    }
-    if (type === "value") {
-      newDatas[index].value = value;
-    }
-    setLabelValueDatas(newDatas);
+    const newDatas = [...optionsData];
+    newDatas[index] = value;
+    setOptionsData(newDatas);
   };
   return ReactDom.createPortal(
     <StyledModalSize>
       <ModalOption title={""} open={open} onClose={onClose}>
-        <StyledTitle>옵션을 선택해주세요.</StyledTitle>
-        <Card style={{ backgroundColor: "#fafafa", border: 0 }}>
-          <div>라벨: 실제로 설문조사 답변에 나타나는 label</div>
-          <div>값: JSON 데이터에 입력되는 value</div>
-        </Card>
-        {labelValueDatas.map((value, index: number) => {
-          return <InputLabelValue index={index} data={value} onChangeHandler={onChangeInputHandler}></InputLabelValue>;
+        <StyledTitle>옵션을 설정해주세요.</StyledTitle>
+        {optionsData.map((value, index: number) => {
+          return <InputValue title={index.toString()} index={index} value={value} onChangeHandler={onChangeInputHandler} type={""}></InputValue>;
         })}
         <StyledDivCenter>
           <PlusCircleOutlined />
@@ -90,4 +78,4 @@ const ModalComponent = ({ labelValueDatas, setLabelValueDatas, open, onClose }: 
   );
 };
 
-export default ModalComponent;
+export default RadioOptionModal;

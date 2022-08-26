@@ -35,21 +35,21 @@ const routes: Array<RouteType> = [
     name: "CreateSurveySelectInputText",
     key: "CreateSurveySelectInputText",
     route: "/CreateSurveySelectInputText",
-    component: <CreateSurveySelectInputText />,
+    component: <CreateSurveySelectInputText surveyData={undefined} setSurveyData={undefined} />,
     useHeader: true
   },
   {
     name: "CreateSurveySelectInputDatePicker",
     key: "CreateSurveySelectInputDatePicker",
     route: "CreateSurveySelectInputDatePicker",
-    component: <CreateSurveySelectInputDatePicker />,
+    component: <CreateSurveySelectInputDatePicker surveyData={undefined} setSurveyData={undefined} />,
     useHeader: true
   },
   {
     name: "CreateSurveySelectInputRadio",
     key: "CreateSurveySelectInputRadio",
     route: "CreateSurveySelectInputRadio",
-    component: <CreateSurveySelectInputRadio />,
+    component: <CreateSurveySelectInputRadio surveyData={undefined} setSurveyData={undefined} />,
     useHeader: true
   },
   {
