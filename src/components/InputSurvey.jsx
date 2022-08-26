@@ -26,6 +26,7 @@ const SubmitSurveyContainer = styled.div`
 
 function InputSurvey({ props, setSurveyIdx, nextPage }) {
   console.log(props);
+
   function handleChange(value) {
     setSurveyIdx(value.key);
   }
@@ -33,7 +34,7 @@ function InputSurvey({ props, setSurveyIdx, nextPage }) {
   return (
     <Container>
       <SubmitSurveyContainer>
-        <SurveyTitle>{question}</SurveyTitle>
+        <SurveyTitle></SurveyTitle>
         <Form>
           <Form.Item>
             <Input size="large" style={{ width: 500 }}></Input>

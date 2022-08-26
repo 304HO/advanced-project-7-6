@@ -3,7 +3,6 @@ import { Select, Form } from "antd";
 const { Option } = Select;
 
 function SelectSurvey({ props, setSurveyIdx, nextPage }) {
-  console.log(props);
   function handleChange(value) {
     setSurveyIdx(value.key);
   }
