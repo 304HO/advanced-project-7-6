@@ -8,15 +8,15 @@ import CreateSurveySelectInputText from "./pages/CreateSurveySelectInputText";
 import CreateSurveySelectInputDatePicker from "./pages/CreateSurveySelectInputDatePicker";
 import CreateSurveySelectInputRadio from "./pages/CreateSurveySelectInputRadio";
 
-export type RouteType = {
-  name: string;
-  key: string;
-  route: string;
-  component: React.ReactElement;
-  useHeader: boolean;
-};
+// export type RouteType = {
+//   name: string,
+//   key: string,
+//   route: string,
+//   component: React.ReactElement,
+//   useHeader: boolean
+// };
 
-const routes: Array<RouteType> = [
+const routes = [
   {
     name: "CreateSurveyDefault",
     key: "CreateSurveyDefault",

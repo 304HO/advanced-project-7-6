@@ -4,39 +4,35 @@ import styled from "styled-components";
 import { Radio } from "antd";
 import ContentBackground from "../components/ContentBackground";
 import RadioOptionModal from "../components/RadioOptionModal";
+import PlusButton from "../components/PlusButton";
+import MinusButton from "../components/MinusButton";
 
 function CreateSurveySelectInputRadio({ surveyData, setSurveyData }) {
-  const selectFormData = surveyData.formData[3];
-  const [optionsData, setOptionsData] = React.useState(selectFormData.answer.inputOptions);
+  const [optionsData, setOptionsData] = React.useState([""]);
   const [open, setOpen] = React.useState(false);
+  const [isRequired, setIsRequired] = useState(false);
+  const [question, setQuestion] = useState("");
 
   const onClose = (type) => {
-    if (type === "success") {
-      setSurveyData &&
-        setSurveyData((prev) => {
-          const newPrev = { ...prev };
-          newPrev.formData[3].answer.inputOptions = optionsData;
-          return newPrev;
-        });
-    }
     setOpen(false);
   };
 
-  const requiredCheckHandler = (isRequired) => {
-    setSurveyData &&
-      setSurveyData((prev) => {
-        const newPrev = { ...prev };
-        newPrev.formData[3].isRequired = isRequired;
-        return newPrev;
-      });
+  const requiredCheckHandler = () => {
+    setIsRequired((prev) => !prev);
   };
 
-  const onChangeInputHandler = (e) => {
-    const question = e.target.value;
+  const onClickAddForm = () => {
     setSurveyData &&
       setSurveyData((prev) => {
         const newPrev = { ...prev };
-        newPrev.formData[3].question = question;
+        newPrev.formData.push({
+          question,
+          isRequired,
+          answer: {
+            inputType: "radio",
+            inputOptions: optionsData
+          }
+        });
         return newPrev;
       });
   };
@@ -48,8 +44,8 @@ function CreateSurveySelectInputRadio({ surveyData, setSurveyData }) {
           <LeftContainer>
             <LeftItemContainer>
               <InputBox
-                onChange={onChangeInputHandler}
-                value={selectFormData.question}
+                onChange={(e) => setQuestion(e.target.value)}
+                value={question}
                 type="text"
                 placeholder="  2. Radio 설문조사 제목을 입력해주세요."
               />
@@ -67,11 +63,14 @@ function CreateSurveySelectInputRadio({ surveyData, setSurveyData }) {
               </Radio.Group>
             </LeftItemContainer>
             <AddOptionButton onClick={() => setOpen(true)}>옵션 추가하기</AddOptionButton>
-            <button>+ 질문 추가하기</button>
+            <ButtonContainer>
+              <MinusButton />
+              <PlusButton onClick={onClickAddForm} />
+            </ButtonContainer>
           </LeftContainer>
           <RightContainer>
             <RightItemContainer>
-              <Sidebar checked={selectFormData.isRequired} requiredCheckHandler={requiredCheckHandler} />
+              <Sidebar checked={isRequired} requiredCheckHandler={requiredCheckHandler} />
             </RightItemContainer>
           </RightContainer>
         </ContentBackground>
@@ -82,6 +81,13 @@ function CreateSurveySelectInputRadio({ surveyData, setSurveyData }) {
 }
 
 export default CreateSurveySelectInputRadio;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 35px;
+`;
 
 const ButtonWrap = styled.div`
   display: flex;

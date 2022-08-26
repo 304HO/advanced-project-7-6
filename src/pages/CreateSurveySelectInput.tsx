@@ -16,50 +16,56 @@ type CreateSurveySelectInputProps = {
 };
 
 function CreateSurveySelectInput({ surveyData, setSurveyData }: CreateSurveySelectInputProps) {
-  // const [labelValueDatas, setLabelValueDatas] = React.useState<Array<LabelValueDataType>>(
-  //   new Array(3).fill(null).map((_) => ({ ...defaultLabelValueData }))
-  // );
-  const [labelValueDatas, setLabelValueDatas] = React.useState<Array<LabelValueDataType>>([...surveyData.formData[0].answer.inputOptions]);
+  const [labelValueDatas, setLabelValueDatas] = React.useState<Array<LabelValueDataType>>([{ label: "", value: "" }]);
   const [selectedIndex, setSelectedIndex] = React.useState<number>(0);
-
-  const selectFormData = surveyData.formData[0];
   const [open, setOpen] = useState<boolean>(false);
 
+  const [isRequired, setIsRequired] = useState<boolean>(false);
+  const [question, setQuestion] = useState<string>("");
+
   const requiredCheckHandler = (isRequired: boolean) => {
-    setSurveyData &&
-      setSurveyData((prev) => {
-        const newPrev = { ...prev };
-        newPrev.formData[0].isRequired = isRequired;
-        return newPrev;
-      });
+    setIsRequired((prev) => !prev);
   };
 
   const onClose = (type?: string) => {
-    if (type === "success") {
-      setSurveyData &&
-        setSurveyData((prev) => {
-          const newPrev = { ...prev };
-          newPrev.formData[0].answer.inputOptions = labelValueDatas;
-          return newPrev;
-        });
-    }
     setOpen(false);
   };
   const onClickHandler = () => {
     setOpen(true);
   };
-  const onChangeInputHandler = (e: any) => {
-    const question = e.target.value;
+
+  const onClickSelectDropdownHandler = (index: number) => {
+    setSelectedIndex(index);
+  };
+
+  const onClickAddForm = () => {
+    console.log(labelValueDatas);
     setSurveyData &&
       setSurveyData((prev) => {
         const newPrev = { ...prev };
-        newPrev.formData[0].question = question;
+        newPrev.formData.push({
+          question,
+          isRequired,
+          answer: {
+            inputType: "select",
+            inputOptions: labelValueDatas
+          }
+        });
         return newPrev;
       });
   };
 
-  const onClickSelectDropdownHandler = (index: number) => {
-    setSelectedIndex(index);
+  const onClickMinusForm = () => {
+    console.log(labelValueDatas);
+    setSurveyData &&
+      setSurveyData((prev) => {
+        if (prev.formData.length === 0) return prev;
+        const newPrev = { ...prev };
+        const newPrevformData = [...newPrev.formData];
+        newPrevformData.splice(newPrevformData.length - 1, 1);
+        newPrev.formData = newPrevformData;
+        return newPrev;
+      });
   };
 
   const menu = (
@@ -80,7 +86,7 @@ function CreateSurveySelectInput({ surveyData, setSurveyData }: CreateSurveySele
         <ContentBackground>
           <LeftContainer>
             <LeftItemContainer>
-              <InputBox onChange={onChangeInputHandler} value={selectFormData.question} type="text" placeholder="  1.Select input 설문조사 질문" />
+              <InputBox onChange={(e) => setQuestion(e.target.value)} value={question} type="text" placeholder="  1.Select input 설문조사 질문" />
               <Dropdown overlay={menu}>
                 <Button>
                   {labelValueDatas[selectedIndex]?.label} <DownOutlined />
@@ -89,13 +95,13 @@ function CreateSurveySelectInput({ surveyData, setSurveyData }: CreateSurveySele
               <AddOptionButton onClick={onClickHandler}>옵션 추가하기</AddOptionButton>
             </LeftItemContainer>
             <ButtonContainer>
-              <MinusButton />
-              <PlusButton />
+              <MinusButton onClickMinusForm={onClickMinusForm} />
+              <PlusButton onClickAddForm={onClickAddForm} />
             </ButtonContainer>
           </LeftContainer>
           <RightContainer>
             <RightItemContainer>
-              <Sidebar checked={selectFormData.isRequired} requiredCheckHandler={requiredCheckHandler} />
+              <Sidebar checked={isRequired} requiredCheckHandler={requiredCheckHandler} />
             </RightItemContainer>
           </RightContainer>
         </ContentBackground>

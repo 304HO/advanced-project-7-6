@@ -8,16 +8,31 @@ import { Button } from "antd";
 type HeaderProps = {
   visibility?: string;
   surveyData?: any;
+  setSurveyData?: any;
 };
 
-function Header({ surveyData }: HeaderProps) {
+function Header({ surveyData, setSurveyData }: HeaderProps) {
   const navigate = useNavigate();
   const onClickBackButtonHandler = () => {
     navigate(-1);
   };
   const visibility = surveyData !== undefined ? "none" : "hidden";
   const onClickSubmitHandler = (surveyData: any) => {
-    localStorage.setItem("surveyData", JSON.stringify(surveyData));
+    const surveyListString = localStorage.getItem("surveyList");
+    console.log(surveyListString);
+    if (surveyListString !== null) {
+      const surveyList = JSON.parse(surveyListString);
+      console.log("저장 not null ", surveyList, surveyData);
+      localStorage.setItem("surveyList", JSON.stringify([...surveyList, surveyData]));
+    } else {
+      localStorage.setItem("surveyList", JSON.stringify([surveyData]));
+    }
+    setSurveyData({
+      title: "",
+      description: "",
+      formData: [],
+      completionNotice: "귀한 시간을 내주셔서 감사합니다. 더 좋은 과제를 만들 수 있도록 노력하겠습니다."
+    });
     navigate("/");
   };
   return (
@@ -32,8 +47,6 @@ function Header({ surveyData }: HeaderProps) {
     </StyledHeader>
   );
 }
-
-export default Header;
 
 const StyledHeader = styled.header`
   min-width: 1440px;
@@ -84,3 +97,5 @@ const StyledBackButton = styled.button`
   margin: 0 1em;
   width: 6em;
 `;
+
+export default Header;

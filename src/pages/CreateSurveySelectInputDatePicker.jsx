@@ -4,36 +4,37 @@ import styled from "styled-components";
 import { DatePicker } from "antd";
 import moment from "moment";
 import ContentBackground from "../components/ContentBackground";
+import PlusButton from "../components/PlusButton";
+import MinusButton from "../components/MinusButton";
 
 const dateFormat = "YYYY-MM-DD";
 
 function CreateSurveySelectInputDatePicker({ surveyData, setSurveyData }) {
-  const selectFormData = surveyData.formData[2];
-  const selectedDate = selectFormData.answer.inputOptions === "" ? new Date() : selectFormData.answer.inputOptions;
-  function onChange(date, dateString) {
-    setSurveyData &&
-      setSurveyData((prev) => {
-        const newPrev = { ...prev };
-        newPrev.formData[2].answer.inputOptions = dateString;
-        return newPrev;
-      });
-  }
+  const [selectedDate, setSelectedData] = React.useState(new Date());
 
-  const requiredCheckHandler = (isRequired) => {
-    setSurveyData &&
-      setSurveyData((prev) => {
-        const newPrev = { ...prev };
-        newPrev.formData[2].isRequired = isRequired;
-        return newPrev;
-      });
+  const [isRequired, setIsRequired] = React.useState(false);
+  const [question, setQuestion] = React.useState("");
+
+  const requiredCheckHandler = () => {
+    setIsRequired((prev) => !prev);
   };
 
-  const onChangeInputHandler = (e) => {
-    const question = e.target.value;
+  const onChangeDateHandler = (date, dateString) => {
+    setSelectedData(dateString);
+  };
+
+  const onClickAddForm = () => {
     setSurveyData &&
       setSurveyData((prev) => {
         const newPrev = { ...prev };
-        newPrev.formData[2].question = question;
+        newPrev.formData.push({
+          question,
+          isRequired,
+          answer: {
+            inputType: "date",
+            inputOptions: selectedDate
+          }
+        });
         return newPrev;
       });
   };
@@ -44,18 +45,21 @@ function CreateSurveySelectInputDatePicker({ surveyData, setSurveyData }) {
         <LeftContainer>
           <LeftItemContainer>
             <InputBox
-              onChange={onChangeInputHandler}
-              value={selectFormData.question}
+              onChange={(e) => setQuestion(e.target.value)}
+              value={question}
               type="text"
               placeholder="3. Datepicker 설문조사 제목을 입력해주세요."
             />
-            <DatePicker defaultValue={moment(selectedDate, dateFormat)} format={dateFormat} onChange={onChange} />
+            <DatePicker defaultValue={moment(selectedDate, dateFormat)} format={dateFormat} onChange={onChangeDateHandler} />
           </LeftItemContainer>
-          <button>+ 질문 추가하기</button>
+          <ButtonContainer>
+            <MinusButton />
+            <PlusButton onClick={onClickAddForm} />
+          </ButtonContainer>
         </LeftContainer>
         <RightContainer>
           <RightItemContainer>
-            <Sidebar checked={selectFormData.isRequired} requiredCheckHandler={requiredCheckHandler} />
+            <Sidebar checked={isRequired} requiredCheckHandler={requiredCheckHandler} />
           </RightItemContainer>
         </RightContainer>
       </ContentBackground>
@@ -64,6 +68,13 @@ function CreateSurveySelectInputDatePicker({ surveyData, setSurveyData }) {
 }
 
 export default CreateSurveySelectInputDatePicker;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 35px;
+`;
 
 const LeftItemContainer = styled.div`
   display: flex;

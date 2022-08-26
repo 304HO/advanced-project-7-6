@@ -2,25 +2,29 @@ import React from "react";
 import Sidebar from "../components/Sidebar";
 import styled from "styled-components";
 import ContentBackground from "../components/ContentBackground";
+import PlusButton from "../components/PlusButton";
+import MinusButton from "../components/MinusButton";
 
 function CreateSurveySelectInputText({ surveyData, setSurveyData }) {
-  const selectFormData = surveyData.formData[1];
+  const [isRequired, setIsRequired] = React.useState(false);
+  const [question, setQuestion] = React.useState("");
 
-  const onChangeInputHandler = (e) => {
-    const question = e.target.value;
-    setSurveyData &&
-      setSurveyData((prev) => {
-        const newPrev = { ...prev };
-        newPrev.formData[1].question = question;
-        return newPrev;
-      });
+  const requiredCheckHandler = () => {
+    setIsRequired((prev) => !prev);
   };
 
-  const requiredCheckHandler = (isRequired) => {
+  const onClickAddForm = () => {
     setSurveyData &&
       setSurveyData((prev) => {
         const newPrev = { ...prev };
-        newPrev.formData[1].isRequired = isRequired;
+        newPrev.formData.push({
+          question,
+          isRequired,
+          answer: {
+            inputType: "text",
+            inputOptions: ""
+          }
+        });
         return newPrev;
       });
   };
@@ -31,18 +35,21 @@ function CreateSurveySelectInputText({ surveyData, setSurveyData }) {
         <LeftContainer>
           <LeftItemContainer>
             <InputBox
-              onChange={onChangeInputHandler}
-              value={selectFormData.question}
+              onChange={(e) => setQuestion(e.target.value)}
+              value={question}
               type="text"
               placeholder="  2. Text input 설무조사 제목을 입력해주세요."
             />
             <InputBox type="text" placeholder="  미리보기 입니다." />
           </LeftItemContainer>
-          <button>+ 질문 추가하기</button>
+          <ButtonContainer>
+            <MinusButton />
+            <PlusButton onClick={onClickAddForm} />
+          </ButtonContainer>
         </LeftContainer>
         <RightContainer>
           <RightItemContainer>
-            <Sidebar checked={selectFormData.isRequired} requiredCheckHandler={requiredCheckHandler} />
+            <Sidebar checked={isRequired} requiredCheckHandler={requiredCheckHandler} />
           </RightItemContainer>
         </RightContainer>
       </ContentBackground>
@@ -51,6 +58,13 @@ function CreateSurveySelectInputText({ surveyData, setSurveyData }) {
 }
 
 export default CreateSurveySelectInputText;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 35px;
+`;
 
 const LeftItemContainer = styled.div`
   /* border: 3px solid black; */
