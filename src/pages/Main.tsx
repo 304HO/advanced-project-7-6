@@ -7,6 +7,32 @@ import { ReactComponent as Icon } from "./../assets/images/checkList.svg";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 
+function Main() {
+  const navigate = useNavigate();
+
+  const onClickNavigateHandler = (path: string) => {
+    navigate(path);
+  };
+  return (
+    <>
+      <ContentBackground>
+        <StyledArticle>
+          <div>
+            <StyledH1>설문조사를 생성 또는 작동할 수 있습니다.</StyledH1>
+            <StyledButtons>
+              <Button onClick={() => onClickNavigateHandler("/CreateSurveyDefault")}>생성하기</Button>
+              <Button onClick={() => onClickNavigateHandler("/SubmitSurvey")}>작성하기</Button>
+            </StyledButtons>
+          </div>
+          <Icon></Icon>
+        </StyledArticle>
+      </ContentBackground>
+    </>
+  );
+}
+
+export default Main;
+
 const StyledArticle = styled.article`
   position: relative;
   padding: 15em;
@@ -55,29 +81,3 @@ const StyledButtons = styled.div`
     color: var(--color--primary--blue--bl10);
   }
 `;
-
-function Main() {
-  const navigate = useNavigate();
-
-  const onClickNavigateHandler = (path: string) => {
-    navigate(path);
-  };
-  return (
-    <>
-      <ContentBackground>
-        <StyledArticle>
-          <div>
-            <StyledH1>설문조사를 생성 또는 작동할 수 있습니다.</StyledH1>
-            <StyledButtons>
-              <Button onClick={() => onClickNavigateHandler("/CreateSurveyDefault")}>생성하기</Button>
-              <Button onClick={() => onClickNavigateHandler("/SubmitSurvey")}>작성하기</Button>
-            </StyledButtons>
-          </div>
-          <Icon></Icon>
-        </StyledArticle>
-      </ContentBackground>
-    </>
-  );
-}
-
-export default Main;

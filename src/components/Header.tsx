@@ -5,7 +5,38 @@ import { useNavigate } from "react-router-dom";
 import { RiArrowGoBackFill } from "react-icons/ri";
 import { Button } from "antd";
 
+type HeaderProps = {
+  visibility?: string;
+  surveyData?: any;
+};
+
+function Header({ surveyData }: HeaderProps) {
+  const navigate = useNavigate();
+  const onClickBackButtonHandler = () => {
+    navigate(-1);
+  };
+  const visibility = surveyData !== undefined ? "none" : "hidden";
+  const onClickSubmitHandler = (surveyData: any) => {
+    localStorage.setItem("surveyData", JSON.stringify(surveyData));
+    navigate("/");
+  };
+  return (
+    <StyledHeader>
+      <StyledBackButton onClick={onClickBackButtonHandler}>
+        <RiArrowGoBackFill size={"1.8em"}></RiArrowGoBackFill>
+      </StyledBackButton>
+      <StyledText>{`설문 조사 제목`}</StyledText>
+      <StyledAntdButton onClick={() => onClickSubmitHandler(surveyData)} visibility={visibility} type="primary" size={"large"}>
+        생성 완료
+      </StyledAntdButton>
+    </StyledHeader>
+  );
+}
+
+export default Header;
+
 const StyledHeader = styled.header`
+  min-width: 1440px;
   position: fixed;
   height: 80px;
   top: 0;
@@ -53,33 +84,3 @@ const StyledBackButton = styled.button`
   margin: 0 1em;
   width: 6em;
 `;
-
-type HeaderProps = {
-  visibility?: string;
-  surveyData?: any;
-};
-
-function Header({ surveyData }: HeaderProps) {
-  const navigate = useNavigate();
-  const onClickBackButtonHandler = () => {
-    navigate(-1);
-  };
-  const visibility = surveyData !== undefined ? "none" : "hidden";
-  const onClickSubmitHandler = (surveyData: any) => {
-    localStorage.setItem("surveyData", JSON.stringify(surveyData));
-    navigate("/");
-  };
-  return (
-    <StyledHeader>
-      <StyledBackButton onClick={onClickBackButtonHandler}>
-        <RiArrowGoBackFill size={"1.8em"}></RiArrowGoBackFill>
-      </StyledBackButton>
-      <StyledText>{`설문 조사 제목`}</StyledText>
-      <StyledAntdButton onClick={() => onClickSubmitHandler(surveyData)} visibility={visibility} type="primary" size={"large"}>
-        생성 완료
-      </StyledAntdButton>
-    </StyledHeader>
-  );
-}
-
-export default Header;

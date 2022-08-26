@@ -42,14 +42,14 @@ const routes: Array<RouteType> = [
   {
     name: "CreateSurveySelectInputDatePicker",
     key: "CreateSurveySelectInputDatePicker",
-    route: "CreateSurveySelectInputDatePicker",
+    route: "/CreateSurveySelectInputDatePicker",
     component: <CreateSurveySelectInputDatePicker surveyData={undefined} setSurveyData={undefined} />,
     useHeader: true
   },
   {
     name: "CreateSurveySelectInputRadio",
     key: "CreateSurveySelectInputRadio",
-    route: "CreateSurveySelectInputRadio",
+    route: "/CreateSurveySelectInputRadio",
     component: <CreateSurveySelectInputRadio surveyData={undefined} setSurveyData={undefined} />,
     useHeader: true
   },
@@ -65,7 +65,7 @@ const routes: Array<RouteType> = [
     key: "SubmitSurvey",
     route: "/SubmitSurvey",
     component: <SubmitSurvey surveyData={undefined} setSurveyData={undefined} />,
-    useHeader: true
+    useHeader: false
   },
   {
     name: "Error404",

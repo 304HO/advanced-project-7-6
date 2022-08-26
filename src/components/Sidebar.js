@@ -4,7 +4,8 @@ import { DownCircleOutlined, FontSizeOutlined, CalendarOutlined, PlusCircleOutli
 import "antd/dist/antd.css";
 import { useNavigate } from "react-router-dom";
 
-function Sidebar() {
+function Sidebar({ checked, requiredCheckHandler }) {
+  console.log(checked, requiredCheckHandler);
   const navigator = useNavigate();
 
   const SelectInput = () => {
@@ -59,7 +60,7 @@ function Sidebar() {
       <ToggleContainer>
         <Text>필수 여부</Text>
         <Form.Item valuePropName="checked">
-          <Switch />
+          <Switch checked={checked} onChange={requiredCheckHandler} />
         </Form.Item>
       </ToggleContainer>
     </SideBarContainer>
