@@ -34,16 +34,20 @@ const SubmitSurveyContainer = styled.div`
 
 function SubmitSurvey({ surveyData, setSurveyData }) {
   const navigate = useNavigate();
-
-  const [surveyList, setSurveyList] = useState(surveyData);
+  const [surveyList, setSurveyList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const [page, setPage] = useState(0);
   const [surveyIdx, setSurveyIdx] = useState(0);
-  const [selectSurveyIdx, setSelectSurveyIdx] = useState(-1);
-  const [textSurveyData, setTextSurveyData] = useState("");
-  const [dateSurveyData, setDateSurveyData] = useState("");
-  const [radioSurveyIdx, setRadioSurveyIdx] = useState(-1);
+  const [selectSurveyIdx, setSelectSurveyIdx] = useState(null);
+  const [textSurveyData, setTextSurveyData] = useState(null);
+  const [dateSurveyData, setDateSurveyData] = useState(null);
+  const [radioSurveyIdx, setRadioSurveyIdx] = useState(null);
+
+  React.useEffect(() => {
+    const surveyListString = localStorage.getItem("surveyList");
+    if (surveyListString !== null) setSurveyList(JSON.parse(surveyList));
+  }, []);
 
   // React.useEffect(() => {
   //   const test = JSON.stringify({
@@ -157,7 +161,7 @@ function SubmitSurvey({ surveyData, setSurveyData }) {
                       required: true
                     }
                   ]}>
-                  <Input size="large" value={textSurveyData} onChange={setTextSurveyData} style={{ width: 500 }}></Input>
+                  <Input size="large" value={textSurveyData || ""} onChange={setTextSurveyData} style={{ width: 500 }}></Input>
                 </Form.Item>
               </Form>
               <Button size="large" onClick={() => nextPage()}>
