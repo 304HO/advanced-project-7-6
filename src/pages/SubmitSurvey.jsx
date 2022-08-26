@@ -40,36 +40,23 @@ function SubmitSurvey({}) {
   const [surveyList, setSurveyList] = useState([]);
   const [surveyIdx, setSurveyIdx] = useState(0);
   const [page, setPage] = useState(0);
-
-  const [inputFormData, setInputFormData] = useState(new Array(100).fill(null));
+  const [inputFormData, setInputFormData] = useState([]);
 
   React.useEffect(() => {
     const surveyListString = localStorage.getItem("surveyList");
     if (surveyListString !== null) {
       const surveyList = JSON.parse(surveyListString);
-      console.log("surveyListString2", surveyList);
-      // if (surveyList.length !== 0 && surveyList.length < surveyIdx) {
-      // setInputFormData(new Array(surveyList[surveyIdx].formData.length).fill(null));
-      // }
       setSurveyList(surveyList);
     }
     setIsLoading(false);
   }, []);
 
-  // useEffect(() => {
-  //   // if (surveyList.length !== 0 && surveyList.length < surveyIdx) {
-  //   setInputFormData(new Array(surveyList[surveyIdx].formData.length).fill(null));
-  //   // }
-  //   setIsLoading(false);
-  // }, [surveyIdx]);
-
-  // const updateHandler = (value) => {
-  //   setInputArray((prev) => {
-  //     const newPrev = [...prev];
-  //     newPrev[page] = value;
-  //     return newPrev;
-  //   });
-  // };
+  useEffect(() => {
+    if (surveyList[surveyIdx]?.formData) {
+      console.log("useEffect", surveyList[surveyIdx], surveyList[surveyIdx].formData.length);
+      setInputFormData(new Array(surveyList[surveyIdx].formData.length).fill(null));
+    }
+  }, [surveyIdx, surveyList]);
 
   const nextPage = (e) => {
     // TODO: 질문 개수에 따라, 마지막 설문 제출시 alert 호출, Button(제출하기) 렌더링
@@ -83,17 +70,21 @@ function SubmitSurvey({}) {
   if (isLoading) {
     return <Loading />;
   }
-  console.log("message, surveyList", surveyList, surveyIdx);
 
   if (surveyList.length === 0) {
     message.info("설문 리스트가 없습니다.");
     return <Navigate replace to="/" />;
   }
 
-  if (page > surveyList[surveyIdx].formData.length) {
-    message.info("설문을 제출했습니다. 감사합니다.");
+  if (surveyList[surveyIdx].formData.length === 0) {
+    message.info("FORM이 없습니다.");
     return <Navigate replace to="/" />;
   }
+
+  // if (page > surveyList[surveyIdx].formData.length) {
+  //   message.info("설문을 제출했습니다. 감사합니다.");
+  //   return <Navigate replace to="/" />;
+  // }
 
   const onChangeDateHandler = (date, dateString) => {
     setInputFormData((prev) => {

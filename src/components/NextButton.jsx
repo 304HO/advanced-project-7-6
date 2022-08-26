@@ -1,4 +1,4 @@
-import { Button } from "antd";
+import { Button, message } from "antd";
 import { CheckOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 
@@ -25,6 +25,7 @@ function NextButton({ page, nextPage, submitData, setPage, inputFormData }) {
     } else {
       const [resultBoolean, index] = checkFunction();
       if (resultBoolean === true) {
+        message.info("설문을 제출했습니다. 감사합니다.");
         navigate("/");
       } else {
         console.log(index);
