@@ -2,10 +2,10 @@ import { Select, Form } from "antd";
 
 const { Option } = Select;
 
-function AntdSelect({ props, setSelectSurveyIdx }) {
+function AntdSelect({ props, onChangeSelectHandler }) {
   function handleChange(value) {
     console.log(value);
-    setSelectSurveyIdx(value.value);
+    onChangeSelectHandler(value);
   }
   return (
     <Form>
