@@ -6,7 +6,7 @@ import SelectAnswer from "../components/SelectAnswer";
 import styled from "styled-components";
 import SurveyTitle from "../components/SurveyTitle";
 import RadioInput from "../components/RadioInput";
-import { Button, Input, DatePicker, Form } from "antd";
+import { Button, Input, DatePicker, Form, message } from "antd";
 import { CheckOutlined } from "@ant-design/icons";
 import moment from "moment";
 const dateFormat = "YYYY-MM-DD";
@@ -111,9 +111,9 @@ function SubmitSurvey({ surveyData, setSurveyData }) {
   if (isLoading) {
     return <Loading />;
   }
-  console.log(surveyList[surveyIdx]);
 
   if (page > 4) {
+    message.info("설문을 제출했습니다. 감사합니다.");
     return <Navigate replace to="/" />;
   }
 
