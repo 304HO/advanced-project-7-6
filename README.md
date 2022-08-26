@@ -1,6 +1,6 @@
 # codestates-fe-advanced-project-7-6
 
-### 배포링크
+## [Deploy Site](https://codestates-fe-advanced-project-7-6.vercel.app)
 
 ### 7조 팀원구성
 
@@ -36,8 +36,8 @@
 <details>
   <summary>Local Storage 저장된 데이터</summary>
 
-
 ![image](https://user-images.githubusercontent.com/91649767/186931893-395109af-6edc-4e48-9722-9a22845696d5.png)
+
 </details>
 
 <details>
@@ -71,6 +71,14 @@ npm start
 - SubmitSurvey => select input(drop box) | text input | data picker - 김민성
 - SubmitSurvey => radio - 채희찬
 
-### 구현 방법 혹은 구현하면서 어려웠던 점과 이에대한 개선방안
+# 구현 방법 혹은 구현하면서 어려웠던 점과 이에대한 개선방안
 
--
+## 구조 개선
+
+- react-router-dom 을 적극적으로 활용해서 컴포넌트를 더 분리했어야합니다.
+- 구조를 개선하였을 경우 더 재사용 가능한 컴포넌트가 많았는데 아쉬웠습니다.
+
+## 요구 사항을 제대로 파악하기
+
+- 문서화를 세심하게 했으면 요구사항을 더 자세히 확인할 수 있었으나,
+- 몇몇 기능이 요구사항과 다르게 구현되어 수정하는데 시간이 더 필요했습니다.
