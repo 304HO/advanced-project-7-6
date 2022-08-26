@@ -5,7 +5,6 @@ import "antd/dist/antd.css";
 import { useNavigate } from "react-router-dom";
 
 function Sidebar({ checked, requiredCheckHandler }) {
-  console.log(checked, requiredCheckHandler);
   const navigator = useNavigate();
 
   const SelectInput = () => {
