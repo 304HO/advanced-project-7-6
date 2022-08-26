@@ -2,7 +2,7 @@ import { ThemeType } from "../../types/theme";
 
 const theme: ThemeType = {
   id: "light",
-  primaryColor: "#3f26c7",
+  primaryColor: "white",
   secondaryColor: "black",
   background: "white",
   color: "gray"
