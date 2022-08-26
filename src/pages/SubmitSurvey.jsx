@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import Loading from "../components/Loading";
 import SelectSurvey from "../components/SelectSurvey";
+import InputSurvey from "../components/InputSurvey";
 import SelectAnswer from "../components/SelectAnswer";
 import styled from "styled-components";
 import SurveyTitle from "../components/SurveyTitle";
@@ -118,18 +119,7 @@ function SubmitSurvey({ surveyData, setSurveyData }) {
   }
 
   if (page === 0) {
-    return (
-      <Container>
-        <SubmitSurveyContainer>
-          <SurveyTitle>설문을 선택하세요</SurveyTitle>
-          <SelectSurvey props={surveyList} setSurveyIdx={setSurveyIdx} />
-          <Button size="large" onClick={() => nextPage()}>
-            <CheckOutlined />
-            선택하기
-          </Button>
-        </SubmitSurveyContainer>
-      </Container>
-    );
+    return <SelectSurvey props={surveyList} setSurveyIdx={setSurveyIdx} nextPage={nextPage} />;
   } else {
     const inputType = surveyList[surveyIdx].formData[page - 1].answer.inputType;
     const question = surveyList[surveyIdx].formData[page - 1].question;
@@ -174,6 +164,7 @@ function SubmitSurvey({ surveyData, setSurveyData }) {
           <Container>
             <SubmitSurveyContainer>
               <SurveyTitle>{question}</SurveyTitle>
+
               <SelectAnswer props={answerSelect} setSelectSurveyIdx={setSelectSurveyIdx} />
               <Button size="large" onClick={() => nextPage()}>
                 <CheckOutlined />
