@@ -51,6 +51,7 @@
   
 ![설문작성](https://user-images.githubusercontent.com/91649767/186932062-7380d0b5-7833-4e5f-bfa9-588ddebd0ced.gif)
 </details>
+
 ### 프로젝트 실행 방법
 
 ```
